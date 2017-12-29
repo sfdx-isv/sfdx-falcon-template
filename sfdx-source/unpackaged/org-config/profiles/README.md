@@ -1,24 +1,16 @@
 # TODO: sfdx-source / org-config / profiles
 
-This README file explains why this directory is part of the SFDX-Falcon project framework, what type of files should be kept here, and how those files are used.
-
-### Why is this directory part of the template?
-
-This directory is part of the template because...
-
-* Reason one
-* Reason two
-* Reason three
+This README file explains what type of files should be kept in this directory, how those files are used, and why they are located here within the SFDX-Falcon project framework.
 
 ### What type of files should be kept in this directory?
 
-This directory should contain only the following file types.
+This directory should contain only the following files or file types.
 
 ```
-List of expected file types
+README.md    -- This file
+*-meta.xml   -- Specific metadata type files
+.gitignore   -- Configured to exclude all other files
 ```
-
-A .gitignore file should also be present to ensure that only the file types listed above are tracked within the repository.
 
 ### How are these files used?
 
@@ -27,6 +19,14 @@ The files in this directory are used in the following ways.
 * Used like this
 * Used like that
 * Used like this
+
+### Why are these files located here within the SFDX-Falcon project framework?
+
+This directory and the files it contains are located here within the SFDX-Falcon project framework because...
+
+* Reason one
+* Reason two
+* Reason three
 
 ## Relevant Documentation
 
