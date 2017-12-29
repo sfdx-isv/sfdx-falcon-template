@@ -1,7 +1,5 @@
 # TODO: sfdx-source / org-config / settings
 
-This README file explains what type of files should be kept in this directory, how those files are used, and why they are located here within the SFDX-Falcon project framework.
-
 ### What type of files should be kept in this directory?
 
 This directory should contain only the following files or file types.
