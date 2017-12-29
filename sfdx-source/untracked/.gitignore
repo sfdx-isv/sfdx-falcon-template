@@ -1,0 +1,13 @@
+################################################################################
+# Ignore all files and folders in this directory.
+#
+# Developers can add SFDX source files to this directory and push/pull them
+# from scratch orgs without worrying about those files being picked up
+# by Git and pushed to the origin repository.
+################################################################################
+
+# Ignore everything...
+*
+
+# ...Except .gitignore
+!.gitignore
