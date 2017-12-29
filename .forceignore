@@ -1,0 +1,26 @@
+################################################################################
+# Exclude certain files and directories from source push, pull, and convert.
+#
+# The .forceignore file excludes files when running force:source:push,
+# force:source:pull, and force:source:status. For source:status, remote changes
+# are checked against entries in the .forceignore file. 
+#
+# Syntax for .forceignore is similar to .gitignore (see examples below)
+#
+# Specify a relative path to a directory from the project root
+# helloWorld/main/default/classes
+#
+# Specify a wildcard directory - any directory named “classes” is excluded
+# **classes
+#
+# Specify file extensions
+# **.cls
+# **.pdf
+#
+# Specify a specific file
+# helloWorld/main/default/HelloWorld.cls
+################################################################################
+
+# Ignore the following directories (relative to the project root).
+sfdx-source/your_ns_prefix/test/javascript
+sfdx-source/your_ns_prefix/test/selenium
