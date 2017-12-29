@@ -1,0 +1,16 @@
+################################################################################
+# Ignore all files and folders in this directory, other than
+# - This file (.gitignore)
+# - This directory's README file (README.md)
+#
+# IMPORTANT: All other files should be ignored by Git.  This means that any
+# Object or Field metadata that ends up in this folder MUST be moved into the
+# schema folder in order to be included in the origin repo.
+################################################################################
+
+# Ignore everything...
+*
+
+# Except the following...
+!.gitignore
+!README.md
