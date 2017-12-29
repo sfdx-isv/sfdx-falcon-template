@@ -15,7 +15,7 @@
 !README.md
 
 # And allow ALL Salesforce metadata files...
-!*-meta.xml
+!*.settings-meta.xml
 
 # Or, allow ONLY a specific set of whitelisted files to be tracked. For example:
 # !Custom_Permset.permissionset-meta.xml
