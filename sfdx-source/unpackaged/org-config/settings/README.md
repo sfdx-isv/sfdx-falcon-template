@@ -1,4 +1,4 @@
-# TODO: sfdx-source / org-config / settings
+# TODO: sfdx-source / unpackaged / org-config / settings
 
 ### What type of files should be kept in this directory?
 
