@@ -1,19 +1,17 @@
-# Build and Release Folders
-bin/
-bin-debug/
-bin-release/
-[Oo]bj/ # FlashDevelop obj
-[Bb]in/ # FlashDevelop bin
+# Ignore OS system files that are usually auto-added to directories
+[Tt]humbs.db
+.DS_Store
 
-# Other files and folders
+# Ignore Salesforce DX config files
+.sfdx
+.salesforce
+
+# Ignore Eclipse config files
+.classpath
+.project
 .settings/
-
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
-
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+ 
+# Ignore Intellij config files
+.idea/
+*.iml
+*.iws
