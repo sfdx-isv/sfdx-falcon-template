@@ -1,0 +1,9 @@
+# Ignore all files and folders in this directory.
+# This is where a developer can store local files of any kind without worrying
+# about them being picked up by Git and pushed to the origin repository.
+
+# Ignore everything...
+*
+
+# ...Except .gitignore
+!.gitignore
