@@ -1,0 +1,10 @@
+{
+  "packageDirectories": [
+    { "path": "sfdx-source/your_ns_prefix", "default": true },
+    { "path": "sfdx-source/unpackaged"},
+    { "path": "sfdx-source/untracked"}
+  ],
+  "namespace": "your_ns_prefix",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "41.0"
+}
