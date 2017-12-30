@@ -1,0 +1,23 @@
+################################################################################
+# Ignore all files and folders in this directory, other than...
+# - This file (.gitignore)
+# - This directory's README file (README.md)
+# - Any page layouts deemed as "core"
+#
+# TODO: Need to validate the need here.  
+#
+# TODO: Need to update the text below to be specific to page layouts.
+#
+# TODO: Should page layouts EVER appear outside of a feature module?
+################################################################################
+
+# Ignore everything...
+*
+
+# Except the following files...
+!.gitignore
+!README.md
+
+# And each page layout listed below...
+# (ie. your whitelisted page layouts)
+# EXAMPLE: !My_Custom_Account_Layout__c-Account.layout-meta
