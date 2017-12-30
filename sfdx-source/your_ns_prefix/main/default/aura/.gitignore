@@ -1,0 +1,32 @@
+################################################################################
+# Ignore all files and folders in this directory, other than...
+# - This file (.gitignore)
+# - This directory's README file (README.md)
+# - Any Aura component bundles that have been whitelisted as "core"
+#
+# IMPORTANT: Only Aura component bundles that are considered "core" and are
+# intended to be shared across modules within this package should be tracked
+# by Git as part of the main/default/aura directory.
+# 
+# To make sure this happens, each "core" Aura bundle will need to be whitelisted
+# by adding them to the exclusion list at the bottom of this file.
+#
+# ALL other Aura component bundles in this directory will be ignored by Git and
+# will therefore NOT be built into the managed package.  These non-core 
+# component bundles 
+#  
+# Aura component bundles that are NOT core should be stored inside of a 
+# specific feature module within this package directory (ie. into a sibling of
+# main/default)
+################################################################################
+
+# Ignore everything...
+*
+
+# Except the following files...
+!.gitignore
+!README.md
+
+# And each Aura component bundle listed below...
+# (ie. your whitelisted Aura component bundles)
+# EXAMPLE: !MyAuraBundle/
