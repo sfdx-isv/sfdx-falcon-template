@@ -2,13 +2,13 @@
 # Ignore all files and folders in this directory, other than...
 # - This file (.gitignore)
 # - This directory's README file (README.md)
-# - Any permission sets deemed as "core"
+# - Any profile deemed as "core"
 #
 # TODO: Need to validate the need here.  
 #
-# TODO: Need to update the text below to be specific to page layouts.
+# TODO: Need to update the text below to be specific to profiles.
 #
-# TODO: Should permission sets EVER appear outside of a feature module? YES.
+# TODO: Should profiles EVER appear outside of a feature module? YES.
 ################################################################################
 
 # Ignore everything...
@@ -18,6 +18,6 @@
 !.gitignore
 !README.md
 
-# And each permission set listed below...
-# (ie. your whitelisted permission sets)
-# EXAMPLE: !Package_Admin.permissionset-meta.xml
+# And each profile listed below...
+# (ie. your whitelisted profiles)
+# EXAMPLE: !Package_Admin.profile-meta.xml
