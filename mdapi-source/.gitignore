@@ -1,0 +1,19 @@
+################################################################################
+# Ignore all files and folders in this directory, other than...
+# - This file (.gitignore)
+# - This directory's README file (README.md)
+# - ?????
+#
+# TODO: Need to fill out the rest of this documentation header.
+################################################################################
+
+# Ignore everything...
+*
+
+# Except the following files...
+!.gitignore
+!README.md
+
+# And each ????? listed below...
+# (ie. your whitelisted profiles)
+# EXAMPLE: !?????-meta.xml
