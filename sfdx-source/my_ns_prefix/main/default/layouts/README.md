@@ -1,4 +1,4 @@
-# TODO: sfdx-source / your_ns_prefix / main / default / layouts
+# TODO: sfdx-source / my_ns_prefix / main / default / layouts
 
 ### What type of files should be kept in this directory?
 

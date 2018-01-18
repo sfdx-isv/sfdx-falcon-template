@@ -1,4 +1,4 @@
-# TODO: sfdx-source / your_ns_prefix / main / default / triggers
+# TODO: sfdx-source / my_ns_prefix / main / default / triggers
 
 ### What type of files should be kept in this directory?
 

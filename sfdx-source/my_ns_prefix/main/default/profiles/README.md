@@ -1,4 +1,4 @@
-# TODO: sfdx-source / your_ns_prefix / main / default / profiles
+# TODO: sfdx-source / my_ns_prefix / main / default / profiles
 
 ### What type of files should be kept in this directory?
 

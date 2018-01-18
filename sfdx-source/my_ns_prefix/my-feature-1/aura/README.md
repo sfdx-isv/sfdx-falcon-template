@@ -1,4 +1,4 @@
-# TODO: sfdx-source / your_ns_prefix / my-feature-1 / aura
+# TODO: sfdx-source / my_ns_prefix / my-feature-1 / aura
 
 ### What type of files should be kept in this directory?
 

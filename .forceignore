@@ -22,5 +22,5 @@
 ################################################################################
 
 # Ignore the following directories (relative to the project root).
-sfdx-source/your_ns_prefix/test/javascript
-sfdx-source/your_ns_prefix/test/selenium
+sfdx-source/my_ns_prefix/test/javascript
+sfdx-source/my_ns_prefix/test/selenium

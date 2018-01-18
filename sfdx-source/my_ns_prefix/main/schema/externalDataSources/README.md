@@ -1,4 +1,4 @@
-# TODO: sfdx-source / your_ns_prefix / main / schema / externalDataSources
+# TODO: sfdx-source / my_ns_prefix / main / schema / externalDataSources
 
 ### What type of files should be kept in this directory?
 
