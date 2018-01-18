@@ -338,7 +338,7 @@ jobs:
       # Store SFDX logs as artifacts
       - store_artifacts:
           path: ~/.sfdx/sfdx.log
-          destination: sfdx-logs
+          destination: sfdx-logs 
 
 ####################################################################################################
 ## WORKFLOW:  build_and_test
