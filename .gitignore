@@ -10,7 +10,10 @@
 .classpath
 .project
 .settings/
- 
+
+# Ignore VSCode config files
+.vscode
+
 # Ignore Intellij config files
 .idea/
 *.iml
