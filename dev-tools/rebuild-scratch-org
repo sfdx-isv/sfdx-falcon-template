@@ -1,0 +1,109 @@
+#!/bin/sh
+####################################################################################################
+#
+# FILENAME:     rebuild-scratch-org
+#
+# PURPOSE:      Deletes then recreates a scratch org based on the SFDX source in this project.
+#
+# DESCRIPTION:  Executing this script will first delete the exisisting default scratch org for
+#               this project (if it exists), then create a new one using the source and config
+#               information defined in your dev-tools/lib/local-config.sh file.
+#
+# INSTRUCTIONS: Execute the following command from the root of your SFDX project directory.
+#               ./dev-tools/rebuild-scratch-org
+#
+#### LOAD SHARED FUNCTIONS LIBRARY #################################################################
+#
+if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  exit 1
+fi
+source `dirname $0`/lib/shared-functions.sh
+#
+#
+#### CONFIRM SCRIPT EXECUTION ######################################################################
+#
+confirmScriptExecution "Do you want to rebuild your scratch org?"
+#
+#
+#### CREATE LOCAL VARIABLES ########################################################################
+#
+# No local variables are used by this script.
+#
+#
+#### SCRATCH ORG SETUP (DELETE/CREATE/PUSH) ########################################################
+#
+# 0. Reset the Step Message counter and set the TOTAL STEPS to 4.
+resetStepMsgCounter 4
+
+# 1. Delete the current scratch org.
+echoStepMsg "Delete the $SCRATCH_ORG_ALIAS scratch org"
+echo "Executing force:org:delete -p -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS" 
+(cd $PROJECT_ROOT && exec sfdx force:org:delete -p -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS )
+
+# 2. Confirm that the scratch org is no longer the default username in SFDX local config.
+echoStepMsg "Validate deletion of the scratch org"
+echo "Executing sfdx force:config:list to confirm deletion from project local config"
+(cd $PROJECT_ROOT && exec sfdx force:config:list)
+
+# 3. Create a new scratch org using the scratch-def.json locally configured for this project. 
+echoStepMsg "Create a new $SCRATCH_ORG_ALIAS scratch org"
+echo "Executing force:org:create -f $SCRATCH_ORG_CONFIG -a $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS -s -d 29"
+(cd $PROJECT_ROOT && exec sfdx force:org:create -f $SCRATCH_ORG_CONFIG -a $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS -s -d 29)
+if [ $? -ne 0 ]; then
+  echoErrorMsg "Scratch org could not be created. Aborting Script."
+  exit 1
+fi
+
+# 4. Push metadata to the new Scratch Org.
+echoStepMsg "Push metadata to the new scratch org"
+echo "Executing force:source:push -u $SCRATCH_ORG_ALIAS"
+(cd $PROJECT_ROOT && exec sfdx force:source:push -u $SCRATCH_ORG_ALIAS)
+if [ $? -ne 0 ]; then
+  echoErrorMsg "SFDX source could not be pushed to the scratch org. Aborting Script."
+  exit 1
+fi
+
+#### Uncomment and modify if you need to install permission sets
+# 5. Assign permission sets to the scratch org's Admin user.
+#echoStepMsg "Assign permission sets to the scratch org's Admin user"
+#echo \
+#"Executing force:user:permset:assign \\
+#            --permsetname "My_Permission_Set" \\
+#            --targetusername $SCRATCH_ORG_ALIAS \\
+#            --loglevel error\n"
+#(cd $PROJECT_ROOT && exec sfdx force:user:permset:assign \
+#                                --permsetname "My_Permission_Set" \
+#                                --targetusername $SCRATCH_ORG_ALIAS \
+#                                --loglevel error)
+#if [ $? -ne 0 ]; then
+#  echoErrorMsg "Permission set could not be assigned to the admin user. Aborting Script."
+#  exit 1
+#fi
+
+#### Uncomment and modify if you need to setup data in your scratch org.
+# 6. Setup development data
+#echoStepMsg "Setup/import data needed for development"
+#echo \
+#"Executing force:data:tree:import \\
+#            --plan ./data/dataplan.json \\
+#            --targetusername $SCRATCH_ORG_ALIAS \\
+#            --loglevel error)\n"
+#(cd $PROJECT_ROOT && exec sfdx force:data:tree:import \
+#                                --plan ./data/dataplan.json \
+#                                --targetusername $SCRATCH_ORG_ALIAS \
+#                                --loglevel error)
+#if [ $? -ne 0 ]; then
+#  echoErrorMsg "Development data could not be imported into the scratch org. Aborting Script."
+#  exit 1
+#fi
+#
+#
+#### ECHO CLOSING MESSAGE ##########################################################################
+#
+echoScriptCompleteMsg \
+"Rebuild of scratch org $SCRATCH_ORG_ALIAS completed successfully."
+
+exit 0
+
+##END##
