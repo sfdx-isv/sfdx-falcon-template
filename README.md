@@ -6,15 +6,38 @@ This template can be used as a starting point for any Salesforce DX project, but
 
 ## Getting Started
 
-These instructions will get you a copy of the SFDX-Falcon template on your local machine and explain how to customize things for your project.  It also explains how to distribute your project to your developers once you're up and running.  If your environment meets all the prerequisites, customizing this template should only take 5-10 minutes.
+These instructions will get you a copy of the SFDX-Falcon template on your local machine and explain how to customize things for your project.  They also explain how to distribute your project to developers once you're up and running.  
+
+If your environment meets all the prerequisites, setup and customization of this template should only take 5-10 minutes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Your Salesforce and local environments should meet the following prerequisites.
 
-```
-Give examples
-```
+#### Salesforce Environment Prerequisites
+
+| Prerequisite                        | Reason                                                  | More Info                             |
+|:------------------------------------|:--------------------------------------------------------|:--------------------------------------|
+| Access to a Developer Hub           | Required for creating scratch orgs                      | [Enable the Dev Hub in Your Org][1]   |
+| Access to a Packaging Org           | Required for creating first-gen packages                | [Overview of Salesforce Packages][2]  |
+| Register a Namespace Prefix         | Required for creating managed packages                  | [Register a Namespace Prefix][3]      |
+| Create a Managed Package            | Required for distribution on the AppExchange            | [Create Salesforce Packages][4]       |
+| Link your Namespace to your Dev Hub | Required for creating namespaced scratch orgs           | [Link a Namespace to a Dev Hub Org][5]|
+
+[1]: http://bit.ly/enable-dev-hub "Enable the Dev Hub in Your Org"
+[2]: http://bit.ly/packaging-overview "Overview of Packages"
+[3]: http://bit.ly/register-a-namespace-prefix "Register a Namespace Prefix"
+[4]: http://bit.ly/create-a-salesforce-package "Create Salesforce Packages"
+[5]: http://bit.ly/link-namespace-to-devhub "Link a Namespace to a Dev Hub Org"
+
+
+#### Local Environment Prerequisites
+
+| Prerequisite                        | Reason                | More Info            |
+|:------------------------------------|:----------------------|:---------------------|
+| ????                                | ????                  | ????                 |
+| ????                                | ????                  | ????                 |
+| ????                                | ????                  | ????                 |
 
 ### Installing
 
