@@ -1,8 +1,8 @@
 # SFDX-Falcon Project Template
 
-# Project Title
+This template can be used as a starting point for any Salesforce DX project, but has been specialized for building managed packages.  Each directory in this repository contains a README file describing its purpose, what type of files it should contain, and additional setup/configuration details (if needed).
 
-One Paragraph of project description goes here
+Intro Video: [Salesforce 201: Advanced Implementation for ISVs](http://bit.ly/sfdx-flow-for-isvs-falcon-intro)
 
 ## Getting Started
 
