@@ -16,28 +16,32 @@ Your Salesforce and local environments should meet the following prerequisites.
 
 #### Salesforce Environment Prerequisites
 
-| Prerequisite                        | Reason                                                  | More Info                             |
-|:------------------------------------|:--------------------------------------------------------|:--------------------------------------|
-| Access to a Developer Hub           | Required for creating scratch orgs                      | [Enable the Dev Hub in Your Org][1]   |
-| Access to a Packaging Org           | Required for creating first-gen packages                | [Overview of Salesforce Packages][2]  |
-| Register a Namespace Prefix         | Required for creating managed packages                  | [Register a Namespace Prefix][3]      |
-| Create a Managed Package            | Required for distribution on the AppExchange            | [Create Salesforce Packages][4]       |
-| Link your Namespace to your Dev Hub | Required for creating namespaced scratch orgs           | [Link a Namespace to a Dev Hub Org][5]|
+| Prerequisite                        | Reason                                                  | More Info                              |
+|:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
+| Access to a Developer Hub           | Required for creating scratch orgs                      | [Enable the Dev Hub in Your Org][1]    |
+| Create Salesforce DX Users          | Required for developers to access your Dev Hub          | [Add Salesforce DX Users][1a]          |
+| Access to a Packaging Org           | Required for creating first-gen packages                | [Overview of Salesforce Packages][2]   |
+| Register a Namespace Prefix         | Required for creating managed packages                  | [Register a Namespace Prefix][3]       |
+| Create a Managed Package            | Required for distribution on the AppExchange            | [Create Salesforce Packages][4]        |
+| Link your Namespace to your Dev Hub | Required for creating namespaced scratch orgs           | [Link a Namespace to a Dev Hub Org][5] |
 
-[1]: http://bit.ly/enable-dev-hub "Enable the Dev Hub in Your Org"
-[2]: http://bit.ly/packaging-overview "Overview of Packages"
-[3]: http://bit.ly/register-a-namespace-prefix "Register a Namespace Prefix"
-[4]: http://bit.ly/create-a-salesforce-package "Create Salesforce Packages"
-[5]: http://bit.ly/link-namespace-to-devhub "Link a Namespace to a Dev Hub Org"
+[1]: http://bit.ly/enable-dev-hub               "Enable the Dev Hub in Your Org"
+[1a]: http://bit.ly/add-sfdx-users-to-devhub    "Add Salesforce DX Users"
+[2]: http://bit.ly/packaging-overview           "Overview of Packages"
+[3]: http://bit.ly/register-a-namespace-prefix  "Register a Namespace Prefix"
+[4]: http://bit.ly/create-a-salesforce-package  "Create Salesforce Packages"
+[5]: http://bit.ly/link-namespace-to-devhub     "Link a Namespace to a Dev Hub Org"
 
 
 #### Local Environment Prerequisites
 
-| Prerequisite                        | Reason                | More Info            |
-|:------------------------------------|:----------------------|:---------------------|
-| ????                                | ????                  | ????                 |
-| ????                                | ????                  | ????                 |
-| ????                                | ????                  | ????                 |
+| Prerequisite                        | Reason                                                  | More Info                              |
+|:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
+| OS, developer toolset, IDE and VCS  | Required by Salesforce CLI and for modern dev experience| [Salesforce DX System Requirements][6] |
+| Install the Salesforce CLI          | Required for using source-driven dev features of SFDX   | [Install the Salesforce CLI][7]        |
+
+[6]: http://bit.ly/sfdx-system-requirements "Salesforce DX System Requirements"
+[7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
 
 ### Installing
 
