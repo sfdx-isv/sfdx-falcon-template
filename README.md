@@ -2,7 +2,13 @@
 
 This template can be used as a starting point for any Salesforce DX project, but has been specialized for building managed packages.  Each directory in this repository contains a README file describing its purpose, what type of files it should contain, and additional setup/configuration details (if needed).
 
-Intro Video: [Salesforce 201: Advanced Implementation for ISVs](http://bit.ly/sfdx-flow-for-isvs-falcon-intro)
+**Intro Video:** [Salesforce 201: Advanced Implementation for ISVs](http://bit.ly/sfdx-flow-for-isvs-falcon-intro)
+
+This README explains how to customize this template for your Salesforce DX project and how to distribute it to your developers once you're up and running.  If your project meets all the prerequisites, setup should only take 5-10 minutes.
+
+#### Questions/Comments
+
+Salesforce ISV Partners with questions/comments should join the [SFDX-Falcon Chatter Group](http://bit.ly/sfdx-falcon-group) in the Partner Community.  You can also reach out to the author, Vivek M. Chawla on Twitter - [@VivekMChawla](https://twitter.com/VivekMChawla).
 
 ## Getting Started
 
