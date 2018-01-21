@@ -4,15 +4,9 @@ This template can be used as a starting point for any Salesforce DX project, but
 
 **Intro Video:** [Salesforce 201: Advanced Implementation for ISVs](http://bit.ly/sfdx-flow-for-isvs-falcon-intro)
 
-This README explains how to customize this template for your Salesforce DX project and how to distribute it to your developers once you're up and running.  If your project meets all the prerequisites, setup should only take 5-10 minutes.
-
-#### Questions/Comments
-
-Salesforce ISV Partners with questions/comments should join the [SFDX-Falcon Chatter Group](http://bit.ly/sfdx-falcon-group) in the Partner Community.  You can also reach out to the author, Vivek M. Chawla on Twitter - [@VivekMChawla](https://twitter.com/VivekMChawla).
-
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the SFDX-Falcon template on your local machine and explain how to customize things for your project.  It also explains how to distribute your project to your developers once you're up and running.  If your environment meets all the prerequisites, customizing this template should only take 5-10 minutes.
 
 ### Prerequisites
 
@@ -93,3 +87,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Hat tip to anyone who's code was used
 * Inspiration
 * etc
+
+## Questions/Comments
+
+Salesforce ISV Partners with questions/comments should join the [SFDX-Falcon Chatter Group](http://bit.ly/sfdx-falcon-group) in the Partner Community.  You can also reach out to the author, Vivek M. Chawla on Twitter - [@VivekMChawla](https://twitter.com/VivekMChawla).
+
