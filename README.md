@@ -43,20 +43,44 @@ Your Salesforce and local environments should meet the following prerequisites.
 [6]: http://bit.ly/sfdx-system-requirements "Salesforce DX System Requirements"
 [7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
 
-### Installing
 
-A step by step series of examples that tell you have to get a development env running
+#### GitHub Environment Prerequisites
 
-Say what the step will be
+| Prerequisite                        | Reason                                                  | More Info                              |
+|:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
+| Create a new private GitHub repo    | Required for use as shared remote for your project      | [Create a GitHub Repo][8]              |
+| Invite collaborators (personal)     | Required for team development using personal account    | [Invite Collaborators (personal)][9]   |
+| Invite collaborators (organization) | Required for team development using organization account| [Invite Collaborators (organization)][10]|
 
+[8]: http://bit.ly/create-a-github-repo                 "Create a GitHub Repo"
+[9]: http://bit.ly/github-invite-personal-collaborators "Invite Collaborators to a Personal Repo"
+[10]: http://gooogle.com
+
+### Download/Installation
+
+**Step One:** Clone the SFDX-Falcon repo
 ```
-Give the example
-```
+# HTTPS Clone
+git clone https://github.com/sfdx-isv/sfdx-falcon-template.git
 
-And repeat
-
+# SSH Clone
+git clone git@github.com:sfdx-isv/sfdx-falcon-template.git
 ```
-until finished
+**Step Two:** Change the name of the repo to suit your project
+```
+mv ./sfdx-falcon-template ./name-of-your-project
+```
+**Step Three:** Kill the current Git setup then re-initialize to start a fresh history
+```
+cd name-of-your-project
+rm -rf .git
+git init
+git add -A
+git commit -m "Initial commit"
+```
+**Step Four:** Attach your repo to a remote
+```
+????
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
