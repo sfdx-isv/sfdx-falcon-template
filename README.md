@@ -10,11 +10,11 @@ These instructions will get you a copy of the SFDX-Falcon template on your local
 
 If your environment meets all the prerequisites, setup and customization of this template should only take 5-10 minutes.
 
-### Prerequisites
+## Prerequisites
 
 Your Salesforce and local environments should meet the following prerequisites.
 
-#### Salesforce Environment Prerequisites
+### Salesforce Environment Prerequisites
 
 | Prerequisite                        | Reason                                                  | More Info                              |
 |:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
@@ -33,7 +33,7 @@ Your Salesforce and local environments should meet the following prerequisites.
 [5]: http://bit.ly/link-namespace-to-devhub     "Link a Namespace to a Dev Hub Org"
 
 
-#### Local Environment Prerequisites
+### Local Environment Prerequisites
 
 | Prerequisite                        | Reason                                                  | More Info                              |
 |:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
@@ -44,7 +44,7 @@ Your Salesforce and local environments should meet the following prerequisites.
 [7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
 
 
-#### GitHub Environment Prerequisites
+### GitHub Environment Prerequisites
 
 | Prerequisite                        | Reason                                                  | More Info                              |
 |:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
@@ -56,7 +56,7 @@ Your Salesforce and local environments should meet the following prerequisites.
 [9]: http://bit.ly/github-invite-personal-collaborators "Invite Collaborators to a Personal Repo"
 [10]: http://gooogle.com
 
-### Download/Installation
+## Download/Installation
 
 **Step One:** Clone the SFDX-Falcon repo
 ```
