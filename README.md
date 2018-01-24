@@ -80,7 +80,7 @@ mkdir my-new-sfdx-project
 ```
 cp -a  sfdx-falcon-template/.  my-new-sfdx-project
 ```
-**Step Four:** Kill then re-initialize Git in your project folder to start from a clean (empty) history
+**Step Four:** Kill, then re-initialize Git in your project folder to start from a clean (empty) history
 ```
 cd my-new-sfdx-project            # Change to your project directory
 rm -rf .git                       # Remove .git, killing the sfdx-falcon-template history
@@ -90,22 +90,26 @@ git commit -m "Initial commit"    # Perform the initial commit, starting your ne
 ```
 **Step Five:** Add your GitHub repository as a remote of your new local repository (use HTTPS or SSH, not both)
 ```
-# Add remote via HTTPS URI
+# Add HTTPS remote
 git remote add origin https://github.com/<USER_OR_ORGANIZATION_NAME>/<REPOSITORY_NAME>.git
 
-# Add remote via SSH URI
+# Add SSH remote
 git remote add origin git@github.com:<USER_OR_ORGANIZATION_NAME>/<REPOSITORY_NAME>.git
 ```
-**Step Six:** Make the initial push and add an upstream tracking reference to your remote (via the -u flag)
+**Step Six:** Make the initial push and add an upstream reference to your remote (via the -u flag)
 ```
 git push -u origin master
 ```
+All done!
 
-End with an example of getting some data out of the system or using it for a little demo
+## Required Customizations
+You are now ready to begin customizing Salesforce DX project settings, SFDX-Falcon directory names and developer tools, and download/convert metadata from your packaging org.
 
-## Running the tests
-
-Explain how to run the automated tests for this system
+????
+```
+????
+```
+## Customize Salesforce DX project settings
 
 ### Break down into end to end tests
 
