@@ -64,7 +64,7 @@ Windows 10 users can enable the "Windows Subsystem for Linux" feature and instal
 
 ## How to Use This Template
 
-**Step One:** Clone the SFDX-Falcon Template repository
+**Step One:** Clone the SFDX-Falcon Template repository (use HTTPS or SSH, not both)
 ```
 # HTTPS Clone
 git clone https://github.com/sfdx-isv/sfdx-falcon-template.git
@@ -88,9 +88,17 @@ git init                          # Re-initialize Git
 git add -A                        # Stage all files in your project directory
 git commit -m "Initial commit"    # Perform the initial commit, starting your new history
 ```
-**Step Four:** Attach your local repo to a remote
+**Step Five:** Add your GitHub repository as a remote of your new local repository (use HTTPS or SSH, not both)
 ```
-????
+# Add remote via HTTPS URI
+git remote add origin https://github.com/<USER_OR_ORGANIZATION_NAME>/<REPOSITORY_NAME>.git
+
+# Add remote via SSH URI
+git remote add origin git@github.com:<USER_OR_ORGANIZATION_NAME>/<REPOSITORY_NAME>.git
+```
+**Step Six:** Make the initial push and add an upstream tracking reference to your remote (via the -u flag)
+```
+git push -u origin master
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
