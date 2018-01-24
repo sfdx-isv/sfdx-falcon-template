@@ -138,7 +138,8 @@ In order to fully utilize the SFDX-Falcon Template, you should complete the foll
 ### Customize SFDX-Falcon directory names
 From the root of your project directory, rename the "my_ns_prefix" directory in sfdx-source so that it matches the namespace prefix of your managed package.
 ```
-mv sfdx-source/my_ns_prefix sfdx-source/your_ns_prefix
+# Execute this from the root of your project directory
+mv ./sfdx-source/my_ns_prefix ./sfdx-source/your_ns_prefix
 ```
 ### Customize Salesforce DX project settings
 There are two required edits (and one optional one) you need to make inside your `sfdx-project.json` file.
