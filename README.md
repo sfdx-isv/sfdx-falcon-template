@@ -155,7 +155,7 @@ There are two required edits (and one optional one) you need to make inside your
 }
 ```
 ### Customize Developer Tools
-Follow the instructions in the dev-tools readme to customize your developer tools.
+Follow the instructions in the [dev-tools README](dev-tools/README.md) for detailed information on how create and edit a `local-config.sh` so you can customize the behavior of the SFDX-Falcon dev-tools when deployed to your developer's machines.
 
 ## Resources
 List of resources TBA
