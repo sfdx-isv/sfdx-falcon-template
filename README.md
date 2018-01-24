@@ -4,6 +4,10 @@ This template can be used as a starting point for any Salesforce DX project, but
 
 **Intro Video:** [Salesforce 201: Advanced Implementation for ISVs](http://bit.ly/sfdx-flow-for-isvs-falcon-intro)
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
 ## Getting Started
 
 These instructions will get you a copy of the SFDX-Falcon template on your local machine and explain how to customize things for your project.  They also explain how to distribute your project to developers once you're up and running.  
@@ -157,10 +161,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Contributors
 
 TODO: Need to add code of conduct and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 TODO
