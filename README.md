@@ -136,30 +136,40 @@ You are now ready to customize your Salesforce DX project and the SFDX-Falcon di
 In order to fully utilize the SFDX-Falcon Template, you should complete the following final customizations inside of your project/repository. Once these tasks are complete, you will be ready to download/convert metadata from your packaging org.
 
 ### Customize SFDX-Falcon directory names
-???
-
+From the root of your project directory, rename the "my_ns_prefix" directory in sfdx-source so that it matches the namespace prefix of your managed package.
+```
+mv sfdx-source/my_ns_prefix sfdx-source/your_ns_prefix
+```
 ### Customize Salesforce DX project settings
-???
-
+There are two required edits (and one optional one) you need to make inside your `sfdx-project.json` file.
+```
+{
+  "packageDirectories": [
+    { "path": "sfdx-source/your_ns_prefix", "default": true },  <----- EDIT ONE: Your package's namespace
+    { "path": "sfdx-source/unpackaged"},
+    { "path": "sfdx-source/untracked"}
+  ],
+  "namespace": "your_ns_prefix", <------------------------------------ EDIT TWO: Your package's namespace
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "41.0" <---------------------------------------- OPTIONAL: Set this to the version you want
+}
+```
 ### Customize Developer Tools
-???
+Follow the instructions in the dev-tools readme to customize your developer tools.
 
 ## Resources
+List of resources TBA
+* [?????](http://wwwgoogle.com) - ????
+* [?????](http://wwwgoogle.com) - ????
+* [?????](http://wwwgoogle.com) - ????
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+## Release History
+Release history TBA.
 
 ## Authors
-
 * **Vivek M. Chawla** - *Lead Developer* - [@VivekMChawla](https://twitter.com/VivekMChawla)
 
 ## Contributors
-
 TODO: Need to add code of conduct and the process for submitting pull requests.
 
 ## Acknowledgments
