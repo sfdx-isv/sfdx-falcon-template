@@ -100,7 +100,33 @@ git remote add origin git@github.com:<USER_OR_ORGANIZATION_NAME>/<REPOSITORY_NAM
 ```
 git push -u origin master
 ```
-You are now ready to build and customize a new Salesforce DX project using the SFDX-Falcon structure.
+You are now ready to connect the Salesforce CLI to your Dev Hub and Packaging Org. 
+
+## Connect the Salesforce CLI to your Dev Hub and Packaging Org
+If you have not previously connected the Salesforce CLI to your Dev Hub and Packaging Org, you will need to do so before continuing.
+
+### Connect the CLI to your Dev Hub
+```
+# force:auth:web:login
+# -a --SETALIAS                   Set an alias for the authenticated org
+# -d --SETDEFAULTDEVHUBUSERNAME   Set the authenticated org as the default
+#                                 dev hub org for scratch org creation
+sfdx force:auth:web:login -a DevHub -d
+```
+### Connect the CLI to your Packaging Org
+```
+# force:auth:web:login
+# -a --SETALIAS                   Set an alias for the authenticated org
+sfdx force:auth:web:login -a my_ns_prefix-PACKAGING 
+```
+### Connect the CLI to a Sandbox Org (Optional)
+```
+# force:auth:web:login
+# -a --SETALIAS                   Set an alias for the authenticated org
+# -r --INSTANCEURL                The login URL of the instance the org lives on
+sfdx force:auth:web:login -a my_ns_prefix-SANDBOX -r https://test.salesforce.com
+```
+You are now ready to customize your Salesforce DX project and the SFDX-Falcon directories and scripts.
 
 ## Final Customizations
 In order to fully utilize the SFDX-Falcon Template, you should complete the following final customizations inside of your project/repository. Once these tasks are complete, you will be ready to download/convert metadata from your packaging org.
@@ -114,42 +140,11 @@ In order to fully utilize the SFDX-Falcon Template, you should complete the foll
 ### Customize Developer Tools
 ???
 
-
-????
-```
-????
-```
-## Customize Salesforce DX project settings
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
+## Resources
 
 * [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -157,19 +152,21 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Vivek M. Chawla** - *Lead Developer* - [@VivekMChawla](https://twitter.com/VivekMChawla)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+## Contributors
+
+TODO: Need to add code of conduct and the process for submitting pull requests.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+TODO
+* ????
+* ????
+* ????
 
 ## Questions/Comments
 
