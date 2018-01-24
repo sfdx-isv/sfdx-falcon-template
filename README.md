@@ -12,7 +12,8 @@ If your environment meets all the prerequisites, setup and customization of this
 
 ## Prerequisites
 
-Your Salesforce and local environments should meet the following prerequisites.
+Your Salesforce, GitHub, and Local environments should meet the following prerequisites.  If you're missing any of these, make sure you address them in the order they appear in the lists, below.
+
 
 ### Salesforce Environment Prerequisites
 
@@ -33,17 +34,6 @@ Your Salesforce and local environments should meet the following prerequisites.
 [5]: http://bit.ly/link-namespace-to-devhub     "Link a Namespace to a Dev Hub Org"
 
 
-### Local Environment Prerequisites
-
-| Prerequisite                        | Reason                                                  | More Info                              |
-|:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
-| OS, developer toolset, IDE and VCS  | Required by Salesforce CLI and for modern dev experience| [Salesforce DX System Requirements][6] |
-| Install the Salesforce CLI          | Required for using source-driven dev features of SFDX   | [Install the Salesforce CLI][7]        |
-
-[6]: http://bit.ly/sfdx-system-requirements "Salesforce DX System Requirements"
-[7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
-
-
 ### GitHub Environment Prerequisites
 
 | Prerequisite                        | Reason                                                  | More Info                              |
@@ -54,11 +44,27 @@ Your Salesforce and local environments should meet the following prerequisites.
 
 [8]: http://bit.ly/create-a-github-repo                 "Create a GitHub Repo"
 [9]: http://bit.ly/github-invite-personal-collaborators "Invite Collaborators to a Personal Repo"
-[10]: http://gooogle.com
+[10]: http://bit.ly/github-manage-organization-access   "Manage Individual Access to Organization Repository"
 
-## Download/Installation
 
-**Step One:** Clone the SFDX-Falcon repo
+### Local Environment Prerequisites
+
+| Prerequisite                        | Reason                                                  | More Info                              |
+|:------------------------------------|:--------------------------------------------------------|:---------------------------------------|
+| OS, developer toolset, IDE and VCS  | Required by Salesforce CLI and for modern dev experience| [Salesforce DX System Requirements][6] |
+| Install the Salesforce CLI          | Required for using source-driven dev features of SFDX   | [Install the Salesforce CLI][7]        |
+
+[6]: http://bit.ly/sfdx-system-requirements "Salesforce DX System Requirements"
+[7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
+
+### Important Note for Windows Users
+The commands used in this document and (more importantly) the shell scripts provided in `dev-tools` use syntax supported by the Bash shell (and its cohorts, like Zsh).
+
+Windows 10 users can enable the "Windows Subsystem for Linux" feature and install the Bash shell.  There's a great walkthrough that shows you [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10) over at HowToGeek.com.  
+
+## How to Use This Template
+
+**Step One:** Clone the SFDX-Falcon Template repository
 ```
 # HTTPS Clone
 git clone https://github.com/sfdx-isv/sfdx-falcon-template.git
@@ -66,19 +72,23 @@ git clone https://github.com/sfdx-isv/sfdx-falcon-template.git
 # SSH Clone
 git clone git@github.com:sfdx-isv/sfdx-falcon-template.git
 ```
-**Step Two:** Change the name of the repo to suit your project
+**Step Two:** Create a new local directory for your project 
 ```
-mv ./sfdx-falcon-template ./name-of-your-project
+mkdir my-new-sfdx-project
 ```
-**Step Three:** Kill the current Git setup then re-initialize to start a fresh history
+**Step Three:** Copy everything (including hidden files/directories) from sfdx-falcon-template to your project
 ```
-cd name-of-your-project
-rm -rf .git
-git init
-git add -A
-git commit -m "Initial commit"
+cp -a  sfdx-falcon-template/.  my-new-sfdx-project
 ```
-**Step Four:** Attach your repo to a remote
+**Step Four:** Kill then re-initialize Git in your project folder to start from a clean (empty) history
+```
+cd my-new-sfdx-project            # Change to your project directory
+rm -rf .git                       # Remove .git, killing the sfdx-falcon-template history
+git init                          # Re-initialize Git 
+git add -A                        # Stage all files in your project directory
+git commit -m "Initial commit"    # Perform the initial commit, starting your new history
+```
+**Step Four:** Attach your local repo to a remote
 ```
 ????
 ```
