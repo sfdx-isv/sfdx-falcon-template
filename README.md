@@ -62,7 +62,7 @@ The commands used in this document and (more importantly) the shell scripts prov
 
 Windows 10 users can enable the "Windows Subsystem for Linux" feature and install the Bash shell.  There's a great walkthrough that shows you [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10) over at HowToGeek.com.  
 
-## How to Use This Template
+## How to Start a New Project From This Template
 
 **Step One:** Clone the SFDX-Falcon Template repository (use HTTPS or SSH, not both)
 ```
@@ -100,10 +100,20 @@ git remote add origin git@github.com:<USER_OR_ORGANIZATION_NAME>/<REPOSITORY_NAM
 ```
 git push -u origin master
 ```
-All done!
+You are now ready to build and customize a new Salesforce DX project using the SFDX-Falcon structure.
 
-## Required Customizations
-You are now ready to begin customizing Salesforce DX project settings, SFDX-Falcon directory names and developer tools, and download/convert metadata from your packaging org.
+## Final Customizations
+In order to fully utilize the SFDX-Falcon Template, you should complete the following final customizations inside of your project/repository. Once these tasks are complete, you will be ready to download/convert metadata from your packaging org.
+
+### Customize SFDX-Falcon directory names
+???
+
+### Customize Salesforce DX project settings
+???
+
+### Customize Developer Tools
+???
+
 
 ????
 ```
