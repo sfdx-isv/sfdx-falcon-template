@@ -1,0 +1,287 @@
+#!/bin/sh
+####################################################################################################
+#
+# FILENAME:     setup-project
+#
+# PURPOSE:      Guides a release manager through the process of setting up this project.
+#
+# DESCRIPTION:  When a Salesforce DX project is first created from the SFDX-Falcon template, one of
+#               the first steps a release manager should take is customizing the environment vars in
+#               the local-config-template.sh file to reflect specific choices for their project.  
+#               These variables are important because they drive all of the project's dev-tools 
+#               when they are dropped into the local-config.sh file that an individual developer 
+#               creates when they pull down their initial clone of the project.
+#
+# INSTRUCTIONS: Execute the following command relative to your project's root directory:  
+#               ./dev-tools/setup-project
+#
+# RELATED DOCS: TODO: ?????
+#               └─ https://???.???.com
+#
+#               TODO: ?????
+#               ├─ https://www.????.com
+#               └─ https://www.????.com
+#
+#### LOAD SHARED FUNCTIONS LIBRARY #################################################################
+#
+# Suppress the load of LOCAL_CONFIG variables.
+SUPPRESS_LOCAL_CONFIG="true"
+
+# Load shared functions library.
+if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  exit 1
+fi
+source `dirname $0`/lib/shared-functions.sh
+#
+#
+#### CONFIRM SCRIPT EXECUTION ######################################################################
+#
+confirmScriptExecution "Do you want to start the project setup wizard?"
+#
+#
+#### CREATE LOCAL VARIABLES ########################################################################
+#
+CONFIG_VARS_ACCEPTED="false"
+DETECTED_PROJECT_ROOT="$( cd "$(dirname "$0")" ; cd .. ; pwd -P )"
+PROJECT_ROOT=""
+NAMESPACE_PREFIX=""
+DEFAULT_PACKAGE_DIR_NAME=""
+PACKAGE_NAME=""
+DEV_HUB_ALIAS=""
+SCRATCH_ORG_ALIAS=""
+PACKAGING_ORG_ALIAS=""
+METADATA_PACKAGE_ID=""
+GIT_REMOTE_URI=""
+#
+#
+#### FUNCTION: clearConfigVariables ################################################################
+#
+function clearConfigVariables () {
+  PROJECT_ROOT=""
+  NAMESPACE_PREFIX=""
+  DEFAULT_PACKAGE_DIR_NAME=""
+  PACKAGE_NAME=""
+  DEV_HUB_ALIAS=""
+  SCRATCH_ORG_ALIAS=""
+  PACKAGING_ORG_ALIAS=""
+  METADATA_PACKAGE_ID=""
+  GIT_REMOTE_URI=""
+}
+#
+#### FUNCTION: projectSetupInterview ###############################################################
+#
+function projectSetupInterview () {
+
+  # Specify the total number of questions in the interview
+  resetQuestionCounter 9
+
+  #
+  # QUESTION 1: Ask for the PROJECT_ROOT value
+  #
+  echoQuestion "Specify the path to your project root directory"
+  suggestDefaultValue \
+      PROJECT_ROOT \
+      "$DETECTED_PROJECT_ROOT" \
+      "`tput bold`The path to your SFDX Project Root appears to be the following:`tput sgr0`"
+
+  # Check if the user wants to set their own value.
+  if [ $? -ne 0 ]; then
+    askUserForStringValue PROJECT_ROOT \
+      "`tput bold`\nPlease specify a value for your PROJECT_ROOT config variable.`tput sgr0`
+      \n\nExample: ~/MyCompany/projects/my-sfdx-falcon-project"
+  fi
+
+  #
+  # QUESTION 2: Ask for the NAMESPACE_PREFIX value
+  #
+  echoQuestion "Specify the namespace prefix used by your package"
+  askUserForStringValue NAMESPACE_PREFIX \
+      "IMPORTANT: If you are not developing code for a managed package, use the following value:
+      \n\nNAMESPACE_PREFIX: force-app
+      \n\nIf you ARE developing for a managed package, specify the namespace here."
+
+  #
+  # QUESTION 3: Ask for the PACKAGE_NAME value
+  #
+  echoQuestion "Specify the name of your package"
+  askUserForStringValue PACKAGE_NAME \
+    "`tput bold`Important:`tput sgr0` This value must be entered exactly as specified in your packaging org.
+    \nIf you do not enter this correctly, MDAPI validate/deploy scripts will fail.
+    \n\nYou can find the name of your package on the Package Details page in your packaging org.
+    \n\nExample: My Package"
+
+  #
+  # QUESTION 4: Ask for the DEFAULT_PACKAGE_DIR_NAME value
+  #
+  echoQuestion "Specify the name of your project's default SFDX package directory"
+  suggestDefaultValue \
+      DEFAULT_PACKAGE_DIR_NAME \
+      "$NAMESPACE_PREFIX" \
+      "`tput bold`Important:`tput sgr0` Your should use your namespace prefix ($NAMESPACE_PREFIX)
+      \nas the name of your default SFDX package directory.
+      \n\nAccepting the suggested value (below) is recommended."
+
+  # Check if the user wants to set their own value.
+  if [ $? -ne 0 ]; then
+    askUserForStringValue \
+        DEFAULT_PACKAGE_DIR_NAME \
+        "`tput bold`\nPlease specify a value for your DEFAULT_PACKAGE_DIR_NAME config variable.`tput sgr0`
+        \n\nExample: my_ns_prefix"
+  fi
+
+  #
+  # QUESTION 5: Ask for the DEV_HUB_ALIAS value
+  #
+  echoQuestion "Specify the alias of your Developer Hub"
+  askUserForStringValue \
+      DEV_HUB_ALIAS \
+      "Example: MyDevHub"
+
+  #
+  # QUESTION 6: Ask for the SCRATCH_ORG_ALIAS value
+  #
+  echoQuestion "Specify the scratch org alias that you would like to use"
+  suggestDefaultValue \
+      SCRATCH_ORG_ALIAS \
+      "$NAMESPACE_PREFIX-SCRATCH" \
+      "The recommended setting for SCRATCH_ORG_ALIAS is a concatenation of your namespace prefix 
+      \nand \"-SCRATCH\". Based on your previous setting for NAMESPACE_PREFIX, it is recommended
+      \nthat you accept the default setting, below."
+
+  if [ $? -ne 0 ]; then
+    askUserForStringValue \
+        SCRATCH_ORG_ALIAS \
+        "`tput bold`\nPlease specify a value for your SCRATCH_ORG_ALIAS config variable.`tput sgr0`
+        \n\nExample: my_ns_prefix-SCRATCH"
+  fi
+
+  #
+  # QUESTION 7: Ask for the PACKAGING_ORG_ALIAS value
+  #
+  echoQuestion "Specify the alias of your Packaging Org"
+  suggestDefaultValue \
+      PACKAGING_ORG_ALIAS \
+      "$NAMESPACE_PREFIX-PACKAGE" \
+      "The recommended setting for PACKAGING_ORG_ALIAS is a concatenation of your namespace prefix 
+      \nand \"-PACKAGE\". Based on your previous setting for NAMESPACE_PREFIX, it is recommended
+      \nthat you accept the default setting, below."
+
+  if [ $? -ne 0 ]; then
+    askUserForStringValue \
+        PACKAGING_ORG_ALIAS \
+        "`tput bold`\nPlease specify a value for your PACKAGING_ORG_ALIAS config variable.`tput sgr0`
+        \n\nExample: my_ns_prefix-PACKAGE"
+  fi
+
+  #
+  # QUESTION 8: Ask for the SUBSCRIBER_ORG_ALIAS value
+  #
+  echoQuestion "Specify the alias of your Subscriber Org (used for UAT, demos, etc)"
+  suggestDefaultValue \
+      SUBSCRIBER_ORG_ALIAS \
+      "$NAMESPACE_PREFIX-SUBSCRIBER" \
+      "The recommended setting for SUBSCRIBER_ORG_ALIAS is a concatenation of your namespace prefix 
+      \nand \"-SUBSCRIBER\". Based on your previous setting for NAMESPACE_PREFIX, it is recommended
+      \nthat you accept the default setting, below."
+
+  if [ $? -ne 0 ]; then
+    askUserForStringValue \
+        SUBSCRIBER_ORG_ALIAS \
+        "`tput bold`\nPlease specify a value for your SUBSCRIBER_ORG_ALIAS config variable.`tput sgr0`
+        \n\nExample: my_ns_prefix-SUBSCRIBER"
+  fi
+
+  #
+  # QUESTION 9: Ask for the METADATA_PACKAGE_ID value
+  #
+  echoQuestion "Specify the Metadata Package ID of your managed package"
+  suggestDefaultValue \
+      METADATA_PACKAGE_ID \
+      "033000000000000" \
+      "If you do not know the Metadata Package ID for your managed package, it is
+      \nOK to accept the placeholder value \"033000000000000\" as suggested, below."
+
+  if [ $? -ne 0 ]; then
+    askUserForStringValue \
+        METADATA_PACKAGE_ID \
+        "`tput bold`\nPlease specify a value for your METADATA_PACKAGE_ID config variable.`tput sgr0`
+        \n\n`tput bold`Important:`tput sgr0` Metadata Package ID values always begin with 033.
+        \n\nExample: 033000000000000"
+  fi
+
+  #
+  # QUESTION 10: Ask for the GIT_REMOTE_URI value
+  #
+  echoQuestion "Specify the URI of your remote repository"
+  askUserForStringValue GIT_REMOTE_URI \
+    "Please specify either an SSH or HTTPS URI for the remote Git repository
+    \nthat your local repo should be configured to track against.
+    \n\nExample: https://github.com/MyCompany/my-remote-repo.git"
+
+}
+#
+#### FUNCTION: projectSetupInterview ###############################################################
+#
+function confirmConfigVariables () {
+  # Final validation message
+  echo "\n`tput setaf 7``tput bold`Local Configuration Variables:`tput sgr0`"
+
+  # Show all the vars that will be set
+  echoConfigVariables
+
+  # Ask the user to confirm their variables.
+  echo "Update dev-tools/lib/local-config-template.sh with the above values?\n"
+  read -p "(type YES to accept,  NO to begin again) " CONFIRM_EXECUTION
+  if [ "$CONFIRM_EXECUTION" = "YES" ]; then
+    CONFIG_VARS_ACCEPTED="true"
+  fi
+
+  return 0
+}
+#
+#### FUNCTION: projectSetupInterview ###############################################################
+#
+function setLocalConfigFileVariable () {
+  # Create a local variable to store the value of 
+  # the variable provided by the first argument.
+  local ENV_VAR_NAME=$1
+  eval "local ENV_VAR_VALUE=\$$1"
+
+  # Use PERLs in-place find-and-replace to find the key specified by
+  # argument 1 (the ENV VAR) and replace it with the KEY+VALUE specified
+  # by argument 2.  In other words...
+  # PROJECT_ROOT=SomePreviousString 
+  #   becomes....
+  # PROJECT_ROOT="SomeNewString"
+  perl -pi -e "s/^${ENV_VAR_NAME}=.*/${ENV_VAR_NAME}=\"${ENV_VAR_VALUE}\"/g;" "$DETECTED_PROJECT_ROOT/dev-tools/lib/local-config-template.sh"
+
+}
+
+
+####################################################################################################
+## MAIN EXECUTION BODY
+####################################################################################################
+#
+# Launch the Project Setup Interview.  If the user does not accept the list of
+# config variables that 
+while [ "$CONFIG_VARS_ACCEPTED" != "true" ]; do
+  clearConfigVariables
+  projectSetupInterview
+  confirmConfigVariables
+done
+
+# If we get here, it means that the user has specified values for all of the
+# environment variables and confirmed that they are the ones that should be
+# saved to local-config-template.sh.  Now we need to make that happen.
+setLocalConfigFileVariable PROJECT_ROOT
+
+
+####################################################################################################
+## CLOSING MESSAGE
+####################################################################################################
+#
+# Echo the closing message.
+echoScriptCompleteMsg "SFDX-Falcon project setup complete."
+
+##END##
