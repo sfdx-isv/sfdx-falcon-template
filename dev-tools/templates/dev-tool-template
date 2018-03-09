@@ -17,7 +17,13 @@
 #               ├─ https://www.????.com
 #               └─ https://www.????.com
 #
+####################################################################################################
+#
+##
+###
 #### LOAD SHARED FUNCTIONS LIBRARY #################################################################
+###
+##
 #
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
   echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
@@ -25,22 +31,47 @@ if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
 fi
 source `dirname $0`/lib/shared-functions.sh
 #
-#
+##
+###
 #### CONFIRM SCRIPT EXECUTION ######################################################################
+###
+##
 #
 confirmScriptExecution "##ADD_CONFIRMATION_QUESTION##?"
 #
-#
+##
+###
 #### CREATE LOCAL VARIABLES ########################################################################
+###
+##
 #
 # No local variables are used by this script.
 #
-#
+##
+###
 #### CUSTOM CODE BEGINS HERE #######################################################################
+###
+##
+#
+
+# Add your code here.
+
+#
+##
+###
+#### ECHO CLOSING MESSAGE ##########################################################################
+###
+##
+#
+echoScriptCompleteMsg \
+"Script completed successfully."
+exit 0
 
 
 
-# Make sure none of the template code below is ever accidentally executed
+
+
+# Make sure none of the sample code below is ever accidentally executed
 # Delete this when you build a new script based on this template.
 return 0
 exit 0
