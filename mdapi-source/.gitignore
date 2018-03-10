@@ -2,18 +2,21 @@
 # Ignore all files and folders in this directory, other than...
 # - This file (.gitignore)
 # - This directory's README file (README.md)
-# - Specific MDAPI source directories you may want to whitelist
+# - Specific MDAPI source directories you want to whitelist
 #
-# TODO: Need to fill out the rest of this documentation header.
+# Why whitelist MDAPI source directories instead of just allowing everything?
+# The reason is that some operations may require temporary MDAPI source when
+# run.  The metadata created by these operations is specific to a local 
+# operation and should not pollute the repository.
 ################################################################################
 
-# Ignore everything...
-*
+# Ignore everything in this directory...
+/*
 
 # Except the following files...
 !.gitignore
 !README.md
 
-# And each ????? listed below...
+# And each MDAPI source directory listed below...
 # (ie. your whitelisted metadata source directories)
-# EXAMPLE: !my_ns_prefix/
+# EXAMPLE: !/my-mdapi-source-directory/
