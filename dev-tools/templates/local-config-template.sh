@@ -22,6 +22,10 @@
 #### DECLARE VARIABLES #############################################################################
 #
 #
+# Alias for the Dev Hub that should be used when creating scratch orgs for this project.
+# This is the ONE variable that will likely need to be customized for individual developers.
+DEV_HUB_ALIAS="MyDevHub"
+
 # Namespace Prefix.  Set to "force-app" if this project is not building a managed package.
 NAMESPACE_PREFIX="force-app"
 
@@ -29,8 +33,11 @@ NAMESPACE_PREFIX="force-app"
 # Surround this value with double-quotes if your package name contains space characters.
 PACKAGE_NAME="My Managed Package"
 
-# Alias for the Dev Hub that should be used when creating scratch orgs for this project.
-DEV_HUB_ALIAS="MyDevHub"
+# Metadata Package ID.  Refers to the metadata package as a whole.  Must begin with "033".
+METADATA_PACKAGE_ID="033000000000000"
+
+# Package Version ID. Refers to a specific, installable version of a package. Must begin with "04t".
+PACKAGE_VERSION_ID="04t000000000000"
 
 # Default Package Directory. Should match what is set in sfdx-project.json.
 DEFAULT_PACKAGE_DIR_NAME="$NAMESPACE_PREFIX"
@@ -44,16 +51,10 @@ PACKAGING_ORG_ALIAS="$NAMESPACE_PREFIX-PACKAGE"
 # Alias for the subscriber test org used to test managed-beta package installs.
 SUBSCRIBER_ORG_ALIAS="$NAMESPACE_PREFIX-SUBSCRIBER"
 
-# Metadata Package ID.  Refers to the metadata package as a whole.  Must begin with "033".
-METADATA_PACKAGE_ID="033000000000000"
-
-# Package Version ID. Refers to a specific, installable version of a package. Must begin with "04t".
-PACKAGE_VERSION_ID="04t000000000000"
-
 # Git Remote URI. SSH or HTTPS URI that points to the Git remote repo used by this project.
-GIT_REMOTE_URI="test"
+GIT_REMOTE_URI="https://github.com/your-organization/your-repository-name.git"
 
-# Project Root -- DO NOT MODIFY -- This will be determined automatically.
+# DO NOT MODIFY! Project Root (path to this project on a local machine) -- This will be determined automatically.
 PROJECT_ROOT=""
 findProjectRoot PROJECT_ROOT
 
