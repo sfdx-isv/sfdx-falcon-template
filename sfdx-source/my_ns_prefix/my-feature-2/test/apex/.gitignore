@@ -1,0 +1,17 @@
+################################################################################
+# Ignore all files and folders in this directory, other than
+# - This file (.gitignore)
+# - This directory's README file (README.md)
+# - Apex class (*.cls) and related metadata files (*.cls-metal.xml)
+################################################################################
+
+# Ignore everything...
+*
+
+# Except the following...
+!.gitignore
+!README.md
+
+# Along with Apex class and class metadata files...
+!*.cls
+!*.cls-meta.xml
