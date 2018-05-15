@@ -9,6 +9,10 @@
 #               to run correctly (eg. the path to your project's root directory or the alias of
 #               the DevHub that you want to use.  These customizations can be specific to each
 #               individual developer, and therefore should not be tracked by the project's VCS.
+#               This file serves as a template that Release Managers can use to establish baseline
+#               values for their project.  When individaul developers clone the repo and initialize
+#               their local, personal version of the project this template is used to create their
+#               own customized local-config.sh file at <project-root>/dev-tools/lib/local-config.sh
 #
 # INSTRUCTIONS: 1. Inside of the dev-tools directory, execute the following command
 #                  cp local-config-template.sh local-config.sh
@@ -18,9 +22,6 @@
 #### DECLARE VARIABLES #############################################################################
 #
 #
-# Project Root
-PROJECT_ROOT="REPLACE_WITH_YOUR_PATH"
-
 # Namespace Prefix.  Set to "force-app" if this project is not building a managed package.
 NAMESPACE_PREFIX="force-app"
 
@@ -28,11 +29,11 @@ NAMESPACE_PREFIX="force-app"
 # Surround this value with double-quotes if your package name contains space characters.
 PACKAGE_NAME="My Managed Package"
 
-# Default Package Directory. Should match what is set in sfdx-project.json.
-DEFAULT_PACKAGE_DIR_NAME="$NAMESPACE_PREFIX"
-
 # Alias for the Dev Hub that should be used when creating scratch orgs for this project.
 DEV_HUB_ALIAS="MyDevHub"
+
+# Default Package Directory. Should match what is set in sfdx-project.json.
+DEFAULT_PACKAGE_DIR_NAME="$NAMESPACE_PREFIX"
 
 # Alias for the primary Scratch Org used by this project.
 SCRATCH_ORG_ALIAS="$NAMESPACE_PREFIX-SCRATCH"
@@ -50,7 +51,11 @@ METADATA_PACKAGE_ID="033000000000000"
 PACKAGE_VERSION_ID="04t000000000000"
 
 # Git Remote URI. SSH or HTTPS URI that points to the Git remote repo used by this project.
-GIT_REMOTE_URI="git@github.com:my-organization/my-repository.git"
+GIT_REMOTE_URI="test"
+
+# Project Root -- DO NOT MODIFY -- This will be determined automatically.
+PROJECT_ROOT=""
+findProjectRoot PROJECT_ROOT
 
 # Location of the scratch-def.json that should be used when using various dev-tools scripts.
 SCRATCH_ORG_CONFIG="$PROJECT_ROOT/config/project-scratch-def.json"
