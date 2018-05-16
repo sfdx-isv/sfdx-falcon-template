@@ -28,6 +28,36 @@ fi
 LOCAL_CONFIG_FILE_NAME=lib/local-config.sh  # Name of the file that contains local config variables
 CURRENT_STEP=1                              # Used by echoStepMsg() to indicate the current step
 TOTAL_STEPS=0                               # Used by echoStepMsg() to indicate total num of steps
+CURRENT_QUESTION=1                          # Used by echoQuestion() to indicate the current question
+TOTAL_QUESTIONS=0                           # Used by echoQuestion() to indicate total num of questions
+#
+#### FUNCTION: findProjectRoot () ##################################################################
+#
+findProjectRoot () {
+  # Detect the path to the directory that the running script was called from.
+  local PATH_TO_RUNNING_SCRIPT="$( cd "$(dirname "$0")" ; pwd -P )"
+
+  # Grab the last 10 characters of the detected path.  This should be "/dev-tools".
+  local DEV_TOOLS_SLICE=${PATH_TO_RUNNING_SCRIPT: -10} 
+
+  # Make sure the last 10 chars of the path are "/dev-tools".  
+  # Kill the script with an error if not.
+  if [[ $DEV_TOOLS_SLICE != "/dev-tools" ]]; then
+    echoErrorMsg "Script was not executed within the <project-root>/dev-tools directory."
+    tput sgr 0; tput bold;
+    echo "Shell scripts that utilize FALCON Developer Tools must be executed from"
+    echo "inside the dev-tools directory at the root of your SFDX project.\n"
+    exit 1
+  fi
+
+  # Calculate the Project Root path by going up one level from the path currently
+  # held in the PATH_TO_RUNNING_SCRIPT variable
+  local PATH_TO_PROJECT_ROOT="$( cd "$PATH_TO_RUNNING_SCRIPT" ; cd .. ; pwd -P )"
+
+  # Pass the value of the "detected path" back out to the caller by setting the
+  # value of the first argument provided when the function was called.
+  eval "$1=\"$PATH_TO_PROJECT_ROOT\""
+}
 #
 #### FUNCTION: echoErrorMsg () #####################################################################
 #
@@ -66,6 +96,13 @@ resetStepMsgCounter () {
   TOTAL_STEPS=$1
 }
 #
+#### FUNCTION: resetQuestionCounter () #############################################################
+#
+resetQuestionCounter () {
+  CURRENT_QUESTION=1
+  TOTAL_QUESTIONS=$1
+}
+#
 #### FUNCTION: echoStepMsg () ######################################################################
 #
 echoStepMsg () {
@@ -75,6 +112,16 @@ echoStepMsg () {
   printf " %b\n\n" "$1"
   tput sgr 0;
   let CURRENT_STEP++
+}
+#
+#### FUNCTION: echoQuestion () #####################################################################
+#
+echoQuestion () {
+  tput sgr 0; tput rev;
+  printf "\nQuestion $CURRENT_QUESTION of $TOTAL_QUESTIONS:" 
+  printf " %b\n\n" "$1"
+  tput sgr 0;
+  let CURRENT_QUESTION++
 }
 #
 #### FUNCTION: confirmScriptExecution ##############################################################
@@ -88,6 +135,113 @@ confirmScriptExecution () {
   fi
   echo ""
 }
+#
+#### FUNCTION: askUserForStringValue ###############################################################
+#
+askUserForStringValue () {
+  # If a second argument was provided, echo its
+  # value before asking the user for input.
+  if [ "$2" != "" ]; then
+    echo $2 "\n"
+  fi
+
+  # Create a local variable to store the value of 
+  # the variable provided by the first argument.
+  eval "local LOCAL_VALUE=\$$1"
+
+  # Create a local variable to store the default error message.
+  local LOCAL_ERROR_MSG="You must provide a value at the prompt."
+
+  # Do not allow the user to continue unless they 
+  # provide a value when prompted.
+  while [ "$LOCAL_VALUE" = "" ]; do
+    eval "read -p \"$1: \" $1"
+    eval "LOCAL_VALUE=\$$1"
+
+    if [ "$LOCAL_VALUE" = "" ]; then
+      # If the caller specified a custom error message, use it.
+      if [ "$3" != "" ]; then
+        eval "LOCAL_ERROR_MSG=\"$3\""
+      fi
+      echoErrorMsg "$LOCAL_ERROR_MSG"
+    fi
+  done
+}
+#
+#### FUNCTION: suggestDefaultValue #################################################################
+#
+suggestDefaultValue () {
+  # Make sure a value was provided for the 
+  # second argument of this function.
+  if [ "$2" = "" ]; then
+    echoErrorMsg "You must provide two arguments to suggestDefaultValue.  Terminating script."
+    exit 1
+  fi
+
+  # Create local variables to store the value of 
+  # the variable provided by the first argument and the
+  # value of the second argument (proposed default)
+  eval "local LOCAL_VALUE=\$$1"
+  eval "local LOCAL_DEFAULT=\"$2\""
+  
+  # Set a defualt prompt message in case one is not provided.
+  local INTERNAL_USER_PROMPT="Would you like to accept the following default value?"
+
+  # If the caller supplied a third argument, it means they want
+  # a specific message to be shown before accepting the default.
+  # If they did now, we will use owr own "default" message.
+  if [ ! -z "$3" ]; then
+    INTERNAL_USER_PROMPT="$3"
+  fi
+
+  # Show prompt and display what the default var assignment would be.
+  echo $INTERNAL_USER_PROMPT
+  echo "\n"$1=$LOCAL_DEFAULT"\n"
+
+  # Ask user to confirm or reject the proposed value.
+  read -p "(type YES to accept,  NO to provide a different value) " CONFIRM_EXECUTION
+  if [ "$CONFIRM_EXECUTION" != "YES" ]; then
+    return 1
+  fi
+
+  # Store the value from arg 2 into arg 1, basically
+  # using the "default" value for the main value.
+  eval "$1=\"$2\""
+
+  return 0
+}
+#
+#### FUNCTION: echoConfigVariables () ##############################################################
+#
+echoConfigVariables () {
+  echo ""
+  echo "`tput setaf 7`PROJECT_ROOT -------------->`tput sgr0` " $PROJECT_ROOT
+  echo "`tput setaf 7`NAMESPACE_PREFIX ---------->`tput sgr0` " $NAMESPACE_PREFIX
+  echo "`tput setaf 7`PACKAGE_NAME -------------->`tput sgr0` " $PACKAGE_NAME
+  echo "`tput setaf 7`DEFAULT_PACKAGE_DIR_NAME -->`tput sgr0` " $DEFAULT_PACKAGE_DIR_NAME
+  echo "`tput setaf 7`DEV_HUB_ALIAS ------------->`tput sgr0` " $DEV_HUB_ALIAS
+  echo "`tput setaf 7`SCRATCH_ORG_ALIAS --------->`tput sgr0` " $SCRATCH_ORG_ALIAS
+  echo "`tput setaf 7`PACKAGING_ORG_ALIAS ------->`tput sgr0` " $PACKAGING_ORG_ALIAS
+  echo "`tput setaf 7`SUBSCRIBER_ORG_ALIAS ------>`tput sgr0` " $SUBSCRIBER_ORG_ALIAS
+  echo "`tput setaf 7`METADATA_PACKAGE_ID ------->`tput sgr0` " $METADATA_PACKAGE_ID
+  echo "`tput setaf 7`PACKAGE_VERSION_ID -------->`tput sgr0` " $PACKAGE_VERSION_ID
+  echo "`tput setaf 7`GIT_REMOTE_URI ------------>`tput sgr0` " $GIT_REMOTE_URI
+  echo "`tput setaf 7`SCRATCH_ORG_CONFIG -------->`tput sgr0` " $SCRATCH_ORG_CONFIG
+  echo "`tput setaf 7`ECHO_LOCAL_CONFIG_VARS ---->`tput sgr0` " $ECHO_LOCAL_CONFIG_VARS
+  echo ""
+}
+#
+#### CHECK IF LOCAL CONFIG SHOULD BE SUPPRESSED ####################################################
+#
+# Check to see if $SUPPRESS_LOCAL_CONFIG has been set to "true".  If it is "true", DO NOT
+# load the local configuration variables.  It's likely that this library is being loaded
+# as part of a project setup script, meaning it's very likely that a local-config.sh file
+# has not yet been created.
+#
+if [ "$SUPPRESS_LOCAL_CONFIG" = "true" ]; then
+  # echo "Local dev-tools configuration has been suppressed"
+  return 0
+fi
 #
 #### LOAD PROJECT VARIABLES ########################################################################
 #
@@ -108,10 +262,5 @@ fi
 # after it in this shell.
 #
 source `dirname $0`/$LOCAL_CONFIG_FILE_NAME
-#
-#### FUNCTION: ????? () ############################################################################
-#
-
-
 
 ##END##
