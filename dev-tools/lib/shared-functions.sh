@@ -273,7 +273,7 @@ fi
 if [ ! -r `dirname $0`/$LOCAL_CONFIG_FILE_NAME ]; then
   echoErrorMsg "Local dev-tools configuration file not found"
   tput sgr 0; tput bold;
-  echo "Please create a local-config.sh file in your dev-tools folder by copying"
+  echo "Please create a local-config.sh file in your dev-tools/lib directory by copying"
   echo "local-config-template.sh and customizing it with your local settings\n"
   exit 1
 fi
