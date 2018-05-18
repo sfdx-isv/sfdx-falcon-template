@@ -124,6 +124,12 @@ echoQuestion () {
   let CURRENT_QUESTION++
 }
 #
+#### FUNCTION: showPressAnyKeyPrompt ###############################################################
+#
+showPressAnyKeyPrompt () {
+  read -n 1 -sr -p "-- Press any Key to Continue --"
+}
+#
 #### FUNCTION: confirmScriptExecution ##############################################################
 #
 confirmScriptExecution () {
@@ -133,6 +139,21 @@ confirmScriptExecution () {
     echo "\nScript aborted\n"
     exit 0
   fi
+  echo ""
+}
+#
+#### FUNCTION: confirmChoice #######################################################################
+#
+confirmChoice () {
+  # Local variable will store the user's response.
+  local USER_RESPONSE=""
+  # Show the question being asked.
+  echo "`tput rev`$2`tput sgr0`"
+  # Prompt the user for a response and read their input.
+  read -p "$3" USER_RESPONSE
+  # Save the user's response to the variable provided by the caller.
+  eval "$1=\"$USER_RESPONSE\""
+  # Add a line break
   echo ""
 }
 #
