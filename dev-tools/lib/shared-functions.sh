@@ -14,150 +14,33 @@
 #               until the user manually exits their shell and opens a new one.
 #
 #
+####################################################################################################
+#
+##
+###
 #### PREVENT RELOAD OF THIS LIBRARY ################################################################
+###
+##
 #
 if [ "$SFDX_FALCON_FRAMEWORK_SHELL_VARS_SET" = "true" ]; then
-  # Key local config variables are already set, which means that the
-  # shared-functions library was already loaded.  RETURN (not EXIT) gracefully
-  # so the caller can continue as if they were the first to load this.
+  # The SFDX_FALCON_FRAMEWORK_SHELL_VARS_SET variable is defined as part of 
+  # this project's local configuration script (local-config.sh).  If this 
+  # variable holds the string "true" then it means that local-config.sh has
+  # already been sourced (loaded).  Since this is exactly what THIS script
+  # (shared-functions.sh) is supposed to do it means that this library has
+  # already been loaded.  
+  #
+  # We DO NOT want to load shared-functions.sh a second time, so we'll RETURN
+  # (not EXIT) gracefully so the caller can continue as if they were the
+  # first to load this.
   return 0
 fi
 #
-#### LOAD FIRST SET OF HELPER VARS #################################################################
-#
-LOCAL_CONFIG_FILE_NAME=lib/local-config.sh  # Name of the file that contains local config variables
-CURRENT_STEP=1                              # Used by echoStepMsg() to indicate the current step
-TOTAL_STEPS=0                               # Used by echoStepMsg() to indicate total num of steps
-CURRENT_QUESTION=1                          # Used by echoQuestion() to indicate the current question
-TOTAL_QUESTIONS=0                           # Used by echoQuestion() to indicate total num of questions
-#
-#### FUNCTION: findProjectRoot () ##################################################################
-#
-findProjectRoot () {
-  # Detect the path to the directory that the running script was called from.
-  local PATH_TO_RUNNING_SCRIPT="$( cd "$(dirname "$0")" ; pwd -P )"
-
-  # Grab the last 10 characters of the detected path.  This should be "/dev-tools".
-  local DEV_TOOLS_SLICE=${PATH_TO_RUNNING_SCRIPT: -10} 
-
-  # Make sure the last 10 chars of the path are "/dev-tools".  
-  # Kill the script with an error if not.
-  if [[ $DEV_TOOLS_SLICE != "/dev-tools" ]]; then
-    echoErrorMsg "Script was not executed within the <project-root>/dev-tools directory."
-    tput sgr 0; tput bold;
-    echo "Shell scripts that utilize FALCON Developer Tools must be executed from"
-    echo "inside the dev-tools directory at the root of your SFDX project.\n"
-    exit 1
-  fi
-
-  # Calculate the Project Root path by going up one level from the path currently
-  # held in the PATH_TO_RUNNING_SCRIPT variable
-  local PATH_TO_PROJECT_ROOT="$( cd "$PATH_TO_RUNNING_SCRIPT" ; cd .. ; pwd -P )"
-
-  # Pass the value of the "detected path" back out to the caller by setting the
-  # value of the first argument provided when the function was called.
-  eval "$1=\"$PATH_TO_PROJECT_ROOT\""
-}
-#
-#### FUNCTION: echoErrorMsg () #####################################################################
-#
-echoErrorMsg () {
-  tput sgr 0; tput setaf 7; tput bold;
-  printf "\n\nERROR: "
-  tput sgr 0; tput setaf 1;
-  printf "%b\n\n" "$1"
-  tput sgr 0;
-}
-#
-#### FUNCTION: echoWarningMsg () ###################################################################
-#
-echoWarningMsg () {
-  tput sgr 0; tput setaf 7; tput bold;
-  printf "\n\nWARNING: "
-  tput sgr 0;
-  printf "%b\n\n" "$1"
-  tput sgr 0;
-}
-#
-#### FUNCTION: echoScriptCompleteMsg () ############################################################
-#
-echoScriptCompleteMsg () {
-  tput sgr 0; tput setaf 7; tput bold;
-  printf "\n\nScript Complete: "
-  tput sgr 0;
-  printf "%b\n\n" "$1"
-  tput sgr 0;
-}
-#
-#### FUNCTION: resetStepMsgCounter () ##############################################################
-#
-resetStepMsgCounter () {
-  CURRENT_STEP=1
-  TOTAL_STEPS=$1
-}
-#
-#### FUNCTION: resetQuestionCounter () #############################################################
-#
-resetQuestionCounter () {
-  CURRENT_QUESTION=1
-  TOTAL_QUESTIONS=$1
-}
-#
-#### FUNCTION: echoStepMsg () ######################################################################
-#
-echoStepMsg () {
-  tput sgr 0; tput setaf 7; tput bold;
-  printf "\nStep $CURRENT_STEP of $TOTAL_STEPS:"
-  tput sgr 0;
-  printf " %b\n\n" "$1"
-  tput sgr 0;
-  let CURRENT_STEP++
-}
-#
-#### FUNCTION: echoQuestion () #####################################################################
-#
-echoQuestion () {
-  tput sgr 0; tput rev;
-  printf "\nQuestion $CURRENT_QUESTION of $TOTAL_QUESTIONS:" 
-  printf " %b\n\n" "$1"
-  tput sgr 0;
-  let CURRENT_QUESTION++
-}
-#
-#### FUNCTION: showPressAnyKeyPrompt ###############################################################
-#
-showPressAnyKeyPrompt () {
-  read -n 1 -sr -p "-- Press any Key to Continue --"
-}
-#
-#### FUNCTION: confirmScriptExecution ##############################################################
-#
-confirmScriptExecution () {
-  echo "`tput rev`$1`tput sgr0`"
-  read -p "(type YES to confirm, or hit ENTER to cancel) " CONFIRM_EXECUTION
-  if [ "$CONFIRM_EXECUTION" != "YES" ]; then
-    echo "\nScript aborted\n"
-    exit 0
-  fi
-  echo ""
-}
-#
-#### FUNCTION: confirmChoice #######################################################################
-#
-confirmChoice () {
-  # Local variable will store the user's response.
-  local USER_RESPONSE=""
-  # Show the question being asked.
-  echo "`tput rev`$2`tput sgr0`"
-  # Prompt the user for a response and read their input.
-  read -p "$3" USER_RESPONSE
-  # Save the user's response to the variable provided by the caller.
-  eval "$1=\"$USER_RESPONSE\""
-  # Add a line break
-  echo ""
-}
-#
+##
+###
 #### FUNCTION: askUserForStringValue ###############################################################
+###
+##
 #
 askUserForStringValue () {
   # If a second argument was provided, echo its
@@ -189,7 +72,224 @@ askUserForStringValue () {
   done
 }
 #
+##
+###
+#### FUNCTION: confirmChoice #######################################################################
+###
+##
+#
+confirmChoice () {
+  # Local variable will store the user's response.
+  local USER_RESPONSE=""
+  # Show the question being asked.
+  echo "`tput rev`$2`tput sgr0`"
+  # Prompt the user for a response and read their input.
+  read -p "$3" USER_RESPONSE
+  # Save the user's response to the variable provided by the caller.
+  eval "$1=\"$USER_RESPONSE\""
+  # Add a line break
+  echo ""
+}
+#
+##
+###
+#### FUNCTION: confirmScriptExecution ##############################################################
+###
+##
+#
+confirmScriptExecution () {
+  echo "`tput rev`$1`tput sgr0`"
+  read -p "(type YES to confirm, or hit ENTER to cancel) " CONFIRM_EXECUTION
+  if [ "$CONFIRM_EXECUTION" != "YES" ]; then
+    echo "\nScript aborted\n"
+    exit 0
+  fi
+  echo ""
+}
+#
+##
+###
+#### FUNCTION: echoConfigVariables () ##############################################################
+###
+##
+#
+echoConfigVariables () {
+  echo ""
+  echo "`tput setaf 7`PROJECT_ROOT -------------->`tput sgr0` " $PROJECT_ROOT
+  echo "`tput setaf 7`NAMESPACE_PREFIX ---------->`tput sgr0` " $NAMESPACE_PREFIX
+  echo "`tput setaf 7`PACKAGE_NAME -------------->`tput sgr0` " $PACKAGE_NAME
+  echo "`tput setaf 7`DEFAULT_PACKAGE_DIR_NAME -->`tput sgr0` " $DEFAULT_PACKAGE_DIR_NAME
+  echo "`tput setaf 7`DEV_HUB_ALIAS ------------->`tput sgr0` " $DEV_HUB_ALIAS
+  echo "`tput setaf 7`SCRATCH_ORG_ALIAS --------->`tput sgr0` " $SCRATCH_ORG_ALIAS
+  echo "`tput setaf 7`PACKAGING_ORG_ALIAS ------->`tput sgr0` " $PACKAGING_ORG_ALIAS
+  echo "`tput setaf 7`SUBSCRIBER_ORG_ALIAS ------>`tput sgr0` " $SUBSCRIBER_ORG_ALIAS
+  echo "`tput setaf 7`METADATA_PACKAGE_ID ------->`tput sgr0` " $METADATA_PACKAGE_ID
+  echo "`tput setaf 7`PACKAGE_VERSION_ID -------->`tput sgr0` " $PACKAGE_VERSION_ID
+  echo "`tput setaf 7`SCRATCH_ORG_CONFIG -------->`tput sgr0` " $SCRATCH_ORG_CONFIG
+  echo "`tput setaf 7`GIT_REMOTE_URI ------------>`tput sgr0` " $GIT_REMOTE_URI
+  echo "`tput setaf 7`ECHO_LOCAL_CONFIG_VARS ---->`tput sgr0` " $ECHO_LOCAL_CONFIG_VARS
+  echo ""
+}
+#
+##
+###
+#### FUNCTION: echoErrorMsg () #####################################################################
+###
+##
+#
+echoErrorMsg () {
+  tput sgr 0; tput setaf 7; tput bold;
+  printf "\n\nERROR: "
+  tput sgr 0; tput setaf 1;
+  printf "%b\n\n" "$1"
+  tput sgr 0;
+}
+#
+##
+###
+#### FUNCTION: echoQuestion () #####################################################################
+###
+##
+#
+echoQuestion () {
+  tput sgr 0; tput rev;
+  printf "\nQuestion $CURRENT_QUESTION of $TOTAL_QUESTIONS:" 
+  printf " %b\n\n" "$1"
+  tput sgr 0;
+  let CURRENT_QUESTION++
+}
+#
+##
+###
+#### FUNCTION: echoScriptCompleteMsg () ############################################################
+###
+##
+#
+echoScriptCompleteMsg () {
+  tput sgr 0; tput setaf 7; tput bold;
+  printf "\n\nScript Complete: "
+  tput sgr 0;
+  printf "%b\n\n" "$1"
+  tput sgr 0;
+}
+#
+##
+###
+#### FUNCTION: echoStepMsg () ######################################################################
+###
+##
+#
+echoStepMsg () {
+  tput sgr 0; tput setaf 7; tput bold;
+  printf "\nStep $CURRENT_STEP of $TOTAL_STEPS:"
+  tput sgr 0;
+  printf " %b\n\n" "$1"
+  tput sgr 0;
+  let CURRENT_STEP++
+}
+#
+##
+###
+#### FUNCTION: echoWarningMsg () ###################################################################
+###
+##
+#
+echoWarningMsg () {
+  tput sgr 0; tput setaf 7; tput bold;
+  printf "\n\nWARNING: "
+  tput sgr 0;
+  printf "%b\n\n" "$1"
+  tput sgr 0;
+}
+#
+##
+###
+#### FUNCTION: findProjectRoot () ##################################################################
+###
+##
+#
+findProjectRoot () {
+  # Detect the path to the directory that the running script was called from.
+  local PATH_TO_RUNNING_SCRIPT="$( cd "$(dirname "$0")" ; pwd -P )"
+
+  # Grab the last 10 characters of the detected path.  This should be "/dev-tools".
+  local DEV_TOOLS_SLICE=${PATH_TO_RUNNING_SCRIPT: -10} 
+
+  # Make sure the last 10 chars of the path are "/dev-tools".  
+  # Kill the script with an error if not.
+  if [[ $DEV_TOOLS_SLICE != "/dev-tools" ]]; then
+    echoErrorMsg "Script was not executed within the <project-root>/dev-tools directory."
+    tput sgr 0; tput bold;
+    echo "Shell scripts that utilize FALCON Developer Tools must be executed from"
+    echo "inside the dev-tools directory found at the root of your SFDX project.\n"
+    exit 1
+  fi
+
+  # Calculate the Project Root path by going up one level from the path currently
+  # held in the PATH_TO_RUNNING_SCRIPT variable
+  local PATH_TO_PROJECT_ROOT="$( cd "$PATH_TO_RUNNING_SCRIPT" ; cd .. ; pwd -P )"
+
+  # Pass the value of the "detected path" back out to the caller by setting the
+  # value of the first argument provided when the function was called.
+  eval "$1=\"$PATH_TO_PROJECT_ROOT\""
+}
+#
+##
+###
+#### FUNCTION: initializeHelperVariables () ########################################################
+###
+##
+#
+initializeHelperVariables () {
+  PROJECT_ROOT=""                                       # Path to the root of this SFDX project
+  LOCAL_CONFIG_FILE_NAME=dev-tools/lib/local-config.sh  # Name of the file that contains local config variables
+  CURRENT_STEP=1                                        # Used by echoStepMsg() to indicate the current step
+  TOTAL_STEPS=0                                         # Used by echoStepMsg() to indicate total num of steps
+  CURRENT_QUESTION=1                                    # Used by echoQuestion() to indicate the current question
+  TOTAL_QUESTIONS=1                                     # Used by echoQuestion() to indicate total num of questions
+
+  # Call findProjectRoot() to dynamically determine
+  # the path to the root of this SFDX project
+  findProjectRoot PROJECT_ROOT
+}
+#
+##
+###
+#### FUNCTION: resetQuestionCounter () #############################################################
+###
+##
+#
+resetQuestionCounter () {
+  CURRENT_QUESTION=1
+  TOTAL_QUESTIONS=$1
+}
+#
+##
+###
+#### FUNCTION: resetStepMsgCounter () ##############################################################
+###
+##
+#
+resetStepMsgCounter () {
+  CURRENT_STEP=1
+  TOTAL_STEPS=$1
+}
+#
+##
+###
+#### FUNCTION: showPressAnyKeyPrompt ###############################################################
+###
+##
+#
+showPressAnyKeyPrompt () {
+  read -n 1 -sr -p "-- Press any Key to Continue --"
+}
+#
+##
+###
 #### FUNCTION: suggestDefaultValue #################################################################
+###
+##
 #
 suggestDefaultValue () {
   # Make sure a value was provided for the 
@@ -232,56 +332,45 @@ suggestDefaultValue () {
   return 0
 }
 #
-#### FUNCTION: echoConfigVariables () ##############################################################
+##
+###
+#### BEGIN MAIN EXECUTION BLOCK ####################################################################
+###
+##
 #
-echoConfigVariables () {
-  echo ""
-  echo "`tput setaf 7`PROJECT_ROOT -------------->`tput sgr0` " $PROJECT_ROOT
-  echo "`tput setaf 7`NAMESPACE_PREFIX ---------->`tput sgr0` " $NAMESPACE_PREFIX
-  echo "`tput setaf 7`PACKAGE_NAME -------------->`tput sgr0` " $PACKAGE_NAME
-  echo "`tput setaf 7`DEFAULT_PACKAGE_DIR_NAME -->`tput sgr0` " $DEFAULT_PACKAGE_DIR_NAME
-  echo "`tput setaf 7`DEV_HUB_ALIAS ------------->`tput sgr0` " $DEV_HUB_ALIAS
-  echo "`tput setaf 7`SCRATCH_ORG_ALIAS --------->`tput sgr0` " $SCRATCH_ORG_ALIAS
-  echo "`tput setaf 7`PACKAGING_ORG_ALIAS ------->`tput sgr0` " $PACKAGING_ORG_ALIAS
-  echo "`tput setaf 7`SUBSCRIBER_ORG_ALIAS ------>`tput sgr0` " $SUBSCRIBER_ORG_ALIAS
-  echo "`tput setaf 7`METADATA_PACKAGE_ID ------->`tput sgr0` " $METADATA_PACKAGE_ID
-  echo "`tput setaf 7`PACKAGE_VERSION_ID -------->`tput sgr0` " $PACKAGE_VERSION_ID
-  echo "`tput setaf 7`GIT_REMOTE_URI ------------>`tput sgr0` " $GIT_REMOTE_URI
-  echo "`tput setaf 7`SCRATCH_ORG_CONFIG -------->`tput sgr0` " $SCRATCH_ORG_CONFIG
-  echo "`tput setaf 7`ECHO_LOCAL_CONFIG_VARS ---->`tput sgr0` " $ECHO_LOCAL_CONFIG_VARS
-  echo ""
-}
-#
-#### CHECK IF LOCAL CONFIG SHOULD BE SUPPRESSED ####################################################
-#
-# Check to see if $SUPPRESS_LOCAL_CONFIG has been set to "true".  If it is "true", DO NOT
-# load the local configuration variables.  It's likely that this library is being loaded
-# as part of a project setup script, meaning it's very likely that a local-config.sh file
-# has not yet been created.
-#
+# INITIALIZE HELPER VARIABLES
+initializeHelperVariables
+
+# CHECK IF LOCAL CONFIG SHOULD BE SUPPRESSED.
+# If $SUPPRESS_LOCAL_CONFIG has been set to "true" DO NOT load the local configuration
+# variables.  A script that includes shared-functions.sh can set this variable to 
+# force this behavior (dev-tools/setup-core-project for example).
 if [ "$SUPPRESS_LOCAL_CONFIG" = "true" ]; then
-  # echo "Local dev-tools configuration has been suppressed"
+  # Comment out the following line unless you're debugging setup-core-project.
+  # echo "Local dev-tools configuration (local-config.sh) has been suppressed"
   return 0
 fi
-#
-#### LOAD PROJECT VARIABLES ########################################################################
-#
-# Load local configuration variables from local-config.sh.  If the developer has not created a
-# local-config.sh file in the same directory where this script resides (typically "dev-tools")
-# then EXIT from the shell script with an error message. 
-#
-if [ ! -r `dirname $0`/$LOCAL_CONFIG_FILE_NAME ]; then
+
+# CHECK IF LOCAL CONFIG FILE EXISTS
+# Look for the local config variables script local-config.sh.  If the developer has not created a
+# local-config.sh file in dev-tools/lib then EXIT from the shell script with an error message. 
+if [ ! -r "$PROJECT_ROOT/$LOCAL_CONFIG_FILE_NAME" ]; then
   echoErrorMsg "Local dev-tools configuration file not found"
   tput sgr 0; tput bold;
   echo "Please create a local-config.sh file in your dev-tools/lib directory by copying"
-  echo "local-config-template.sh and customizing it with your local settings\n"
+  echo "dev-tools/templates/local-config-template.sh and customizing it with your local settings\n"
   exit 1
 fi
-#
+
+# LOAD THE LOCAL CONFIG VARIABLES
 # The local-config.sh file was found and is readable. Source (execute) it the current shell process.
 # This will make all the variables defined in local-config.sh available to all commands that come
 # after it in this shell.
-#
-source `dirname $0`/$LOCAL_CONFIG_FILE_NAME
+source "$PROJECT_ROOT/$LOCAL_CONFIG_FILE_NAME"
+
+# MARK THAT LOCAL CONFIG VARIABLES HAVE BEEN SET.
+# Indicates that local config variables have been successfully set. 
+SFDX_FALCON_FRAMEWORK_SHELL_VARS_SET="true"
+
 
 ##END##
