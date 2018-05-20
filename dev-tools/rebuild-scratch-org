@@ -20,10 +20,14 @@
 ###
 ##
 #
+# Make sure that the shared-functions.sh script exists.
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
   echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
   exit 1
 fi
+
+# Load the shared-functions.sh library.  This action will also cause the
+# config variables from dev-tools/lib/local-config.sh to be loaded.
 source `dirname $0`/lib/shared-functions.sh
 #
 ##
@@ -40,32 +44,32 @@ confirmScriptExecution "Do you want to rebuild your scratch org?"
 ###
 ##
 #
-# No local variables are used by this script.
+# The default version of this script does not require additional local
+# variables.  If your customized script does require them, this is where
+# you would define and initialize them.
 #
 ##
 ###
-#### FUNCTION: deleteScratchOrg () #################################################################
+#### FUNCTION: assignPermset () ####################################################################
 ###
 ##
 #
-deleteScratchOrg () {
-  # Delete the current scratch org.
-  echoStepMsg "Delete the $SCRATCH_ORG_ALIAS scratch org"
-  echo "Executing force:org:delete -p -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS" 
-  (cd $PROJECT_ROOT && exec sfdx force:org:delete -p -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS )
-}
-#
-##
-###
-#### FUNCTION: validateScratchOrgDeletion () #######################################################
-###
-##
-#
-validateScratchOrgDeletion () {
-  # Confirm that the scratch org is no longer the default username in SFDX local config.
-  echoStepMsg "Validate deletion of the scratch org"
-  echo "Executing sfdx force:config:list to confirm deletion from project local config"
-  (cd $PROJECT_ROOT && exec sfdx force:config:list)
+assignPermset () {
+  # Assign permission sets to the scratch org's Admin user.
+  echoStepMsg "Assign the $1 permission set to the scratch org's Admin user"
+  echo \
+  "Executing force:user:permset:assign \\
+              --permsetname "$1" \\
+              --targetusername $SCRATCH_ORG_ALIAS \\
+              --loglevel error\n"
+  (cd $PROJECT_ROOT && exec sfdx force:user:permset:assign \
+                                  --permsetname "$1" \
+                                  --targetusername $SCRATCH_ORG_ALIAS \
+                                  --loglevel error)
+  if [ $? -ne 0 ]; then
+    echoErrorMsg "Permission set \"$1\" could not be assigned to the admin user. Aborting Script."
+    exit 1
+  fi
 }
 #
 ##
@@ -87,11 +91,50 @@ createScratchOrg() {
 #
 ##
 ###
+#### FUNCTION: deleteScratchOrg () #################################################################
+###
+##
+#
+deleteScratchOrg () {
+  # Delete the current scratch org.
+  echoStepMsg "Delete the $SCRATCH_ORG_ALIAS scratch org"
+  echo "Executing force:org:delete -p -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS" 
+  (cd $PROJECT_ROOT && exec sfdx force:org:delete -p -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS )
+}
+#
+##
+###
+#### FUNCTION: importData () #######################################################################
+###
+##
+#
+importData () {
+  # Setup development data
+  echoStepMsg "Import data from $1"
+  echo \
+  "Executing force:data:tree:import \\
+              --plan \"$1\" \\
+              --targetusername $SCRATCH_ORG_ALIAS \\
+              --loglevel error)\n"
+  (cd $PROJECT_ROOT && exec sfdx force:data:tree:import \
+                                  --plan "$1" \
+                                  --targetusername $SCRATCH_ORG_ALIAS \
+                                  --loglevel error)
+  if [ $? -ne 0 ]; then
+    echoErrorMsg "Data import failed. Aborting Script."
+    exit 1
+  fi
+}
+#
+##
+###
 #### FUNCTION: installPackage () ###################################################################
 ###
 ##
 #
 installPackage () {
+  # Echo the string provided by argument three. This string should provide the
+  # user with an easy-to-understand idea of what package is being installed.
   echoStepMsg "$3"
 
   # Print the time (HH:MM:SS) when the installation started.
@@ -134,50 +177,15 @@ pushMetadata () {
 #
 ##
 ###
-#### FUNCTION: assignPermset () ####################################################################
+#### FUNCTION: validateScratchOrgDeletion () #######################################################
 ###
 ##
 #
-assignPermset () {
-  # Assign permission sets to the scratch org's Admin user.
-  echoStepMsg "Assign the $1 permission set to the scratch org's Admin user"
-  echo \
-  "Executing force:user:permset:assign \\
-              --permsetname "$1" \\
-              --targetusername $SCRATCH_ORG_ALIAS \\
-              --loglevel error\n"
-  (cd $PROJECT_ROOT && exec sfdx force:user:permset:assign \
-                                  --permsetname "$1" \
-                                  --targetusername $SCRATCH_ORG_ALIAS \
-                                  --loglevel error)
-  if [ $? -ne 0 ]; then
-    echoErrorMsg "Permission set \"$1\" could not be assigned to the admin user. Aborting Script."
-    exit 1
-  fi
-}
-#
-##
-###
-#### FUNCTION: importData () #######################################################################
-###
-##
-#
-importData () {
-  # Setup development data
-  echoStepMsg "Import data from $1"
-  echo \
-  "Executing force:data:tree:import \\
-              --plan \"$1\" \\
-              --targetusername $SCRATCH_ORG_ALIAS \\
-              --loglevel error)\n"
-  (cd $PROJECT_ROOT && exec sfdx force:data:tree:import \
-                                  --plan "$1" \
-                                  --targetusername $SCRATCH_ORG_ALIAS \
-                                  --loglevel error)
-  if [ $? -ne 0 ]; then
-    echoErrorMsg "Data import failed. Aborting Script."
-    exit 1
-  fi
+validateScratchOrgDeletion () {
+  # Confirm that the scratch org is no longer the default username in SFDX local config.
+  echoStepMsg "Validate deletion of the scratch org"
+  echo "Executing sfdx force:config:list to confirm deletion from project local config"
+  (cd $PROJECT_ROOT && exec sfdx force:config:list)
 }
 #
 ##
@@ -186,31 +194,44 @@ importData () {
 ###
 ##
 #
-# Reset the Step Message counter and set the TOTAL STEPS to 4.
+# STEP 0
+# Reset the Step Message counter to reflect the number of TOTAL STEPS
+# in your rebuild process. For the baseline SFDX-Falcon template it's 4.
 resetStepMsgCounter 4
 
-# Delete the current scratch org. (Step 1 and 2)
+# STEPS 1 and 2
+# Delete the current scratch org.
 deleteScratchOrg
 
-# Create a new scratch org using the scratch-def.json locally configured for this project. (Step 3)
+# STEP 3
+# Create a new scratch org using the scratch-def.json locally configured for this project.
 createScratchOrg
 
-# Install any packages (managed or unmanaged). (Step 4-???)
+# STEP 4 through ???
+# Install any packages (managed or unmanaged).
 # Template for calling this function:
 # installPackage #PACKAGE_VERSION_ID# \
 #                "#PACKAGE_NAME#" \
 #                "#STEP_MESSAGE#"
 
-# Push metadata to the new Scratch Org. (Step 4, unless there are installPackage() calls made)
+# STEP 5 through ???
+# Assign any permission sets that were added by installed packages.
+# Template for calling this function:
+# assignPermset #PACKAGED_PERMSET_NAME# 
+
+# STEP 6
+# Push metadata to the new Scratch Org.
 pushMetadata
 
-# Assign permission sets to the scratch org's Admin user. (Step 5, typically)
+# STEP 7 through ????
+# Assign any permission sets that were added by your Source Push.
 # Template for calling this function:
 # assignPermset #PERMSET_NAME# 
 
-# Import data used during development (Step 6, typically)
+# STEP 8 through ????
+# Import data used during development. You may need to make multiple calls
 # Template for calling this function:
-# importData "#DATA_TREE_PLAN_FILEPATH#"
+# importData "$PROJECT_ROOT/data/#DATA_PLAN_JSON#"
 
 #
 ##
