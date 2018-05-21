@@ -8,7 +8,7 @@
   "homepage": "https://github.com/sfdx-isv/sfdx-falcon-template",
   "repository": "sfdx-isv/sfdx-falcon-template",
   "keywords": [
-    "sfdx-plugin"
+    "sfdx-plugin", "sfdx-falcon", "sfdx"
   ],
   "files": [
     "/.circleci",
