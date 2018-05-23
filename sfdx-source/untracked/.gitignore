@@ -9,5 +9,6 @@
 # Ignore everything...
 *
 
-# ...Except .gitignore
+# Except the following files...
 !.gitignore
+!README.md
