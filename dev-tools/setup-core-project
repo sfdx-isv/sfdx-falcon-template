@@ -56,7 +56,10 @@ CONFIG_VARS_ACCEPTED="false"
 DETECTED_PROJECT_ROOT=""
 findProjectRoot DETECTED_PROJECT_ROOT
 
-# These 
+# Set the path to the local-config template file.
+LOCAL_CONFIG_TEMPLATE_FILEPATH="$DETECTED_PROJECT_ROOT/dev-tools/templates/local-config-template.sh.ejs"
+
+# These are set during the interview process.
 NAMESPACE_PREFIX=""
 PACKAGE_NAME=""
 METADATA_PACKAGE_ID=""
@@ -193,7 +196,7 @@ function setLocalConfigTemplateFileVariable () {
   # NAMESPACE_PREFIX=SomePreviousString 
   #   becomes....
   # NAMESPACE_PREFIX="SomeNewString"
-  perl -pi -e "s/^${ENV_VAR_NAME}=.*/${ENV_VAR_NAME}=\"${ENV_VAR_VALUE}\"/g;" "$DETECTED_PROJECT_ROOT/dev-tools/templates/local-config-template.sh"
+  perl -pi -e "s/^${ENV_VAR_NAME}=.*/${ENV_VAR_NAME}=\"${ENV_VAR_VALUE}\"/g;" "$LOCAL_CONFIG_TEMPLATE_FILEPATH"
 
 }
 #
