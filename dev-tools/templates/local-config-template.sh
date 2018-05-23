@@ -1,7 +1,8 @@
 #!/bin/sh
+#<%%#
 ####################################################################################################
 #
-# FILENAME:     local-config-template.sh
+# FILENAME:     local-config-template.sh.ejs
 #
 # PURPOSE:      Template for creating a personalized local-config.sh file.
 #
@@ -16,12 +17,12 @@
 #               customized local-config.sh file at <project-root>/dev-tools/lib/local-config.sh
 #
 # INSTRUCTIONS: 1. Inside of the dev-tools directory, execute the following command
-#                  cp ./templates/local-config-template.sh ./lib/local-config.sh
+#                  cp ./templates/local-config-template.sh.ejs ./lib/local-config.sh
 #               2. Edit the default values in your local-config.sh to meet the needs of your local
 #                  environment and project setup.
 #
 ####################################################################################################
-#
+#%>
 ##
 ###
 #### DEFINE LOCAL CONFIGURATION VARIABLES ##########################################################
@@ -30,20 +31,20 @@
 #
 # Alias for the Dev Hub that should be used when creating scratch orgs for this project.
 # This is the ONE variable that will likely need to be customized for individual developers.
-DEV_HUB_ALIAS="MyDevHub"
+DEV_HUB_ALIAS="<%%-interviewAnswers.devHubAlias%>"
 
 # Namespace Prefix.  Set to "force-app" if this project is not building a managed package.
-NAMESPACE_PREFIX="force-app"
+NAMESPACE_PREFIX="<%-interviewAnswers.namespacePrefix%>"
 
 # Package Name.  Specified as part of the Package Detail info in your packaging org. 
 # Surround this value with double-quotes if your package name contains space characters.
-PACKAGE_NAME="My Managed Package"
+PACKAGE_NAME="<%-interviewAnswers.packageName%>"
 
 # Metadata Package ID.  Refers to the metadata package as a whole.  Must begin with "033".
-METADATA_PACKAGE_ID="033000000000000"
+METADATA_PACKAGE_ID="<%-interviewAnswers.metadataPackageId%>"
 
 # Package Version ID. Refers to a specific, installable version of a package. Must begin with "04t".
-PACKAGE_VERSION_ID="04t000000000000"
+PACKAGE_VERSION_ID="<%-interviewAnswers.packageVersionId%>"
 
 # Default Package Directory. Should match what is set in sfdx-project.json.
 DEFAULT_PACKAGE_DIR_NAME="$NAMESPACE_PREFIX"
@@ -59,7 +60,7 @@ SUBSCRIBER_ORG_ALIAS="$NAMESPACE_PREFIX-SUBSCRIBER"
 
 # Git Remote URI. SSH or HTTPS URI that points to the Git remote repo used by this project.
 # GitHub is used as an example here, but any Git remote (ie. BitBucket) can be used.
-GIT_REMOTE_URI="https://github.com/your-organization/your-repository-name.git"
+GIT_REMOTE_URI="<%-interviewAnswers.gitRemoteUri%>"
 
 # Location of the primary scratch-def.json file that should be used by SFDX-Falcon scripts that
 # create scratch orgs (eg. rebuild-scratch-org).
