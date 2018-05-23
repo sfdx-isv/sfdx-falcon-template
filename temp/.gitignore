@@ -6,11 +6,12 @@
 #
 # Some of the shell scripts that come bundled with the FALCON project template
 # assume the existence of a "temp" directory at the project's root.  Nothing
-# put here should need to be tracked by Git, though.  
+# put here (other than README.md) should need to be tracked by Git, though.  
 ################################################################################
 
-# Ignore everything...
-*
+# Ignore everything in this directory...
+/*
 
-# ...Except .gitignore
+# Except the following files...
 !.gitignore
+!README.md
