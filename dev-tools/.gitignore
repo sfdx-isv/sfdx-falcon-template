@@ -1,10 +1,16 @@
 ################################################################################
-# Ignore local-config.sh
-# This file is used to set variables in each of the shell scripts found in the dev-tools folder.
-# Because these variables may be customized to suit individual developers, it should not be
-# tracked in source control.
+# ALLOW all files and folders in this directory, other than...
+# - local-config.sh
+# - custom_*
 #
-# TODO: Need to fill out the rest of this documentation header.
+# This file (local-config.sh) is used by the shell scripts found in ./dev-tools
+# to provide customized settings for each developer working on an SFDX-Falcon
+# based project.  Because these variables are customized per developer, this 
+# local-config file should NOT be tracked in source control.
+#
+# The same holds for any custom libraries that an indivisual developer would 
+# like to make.  If you want to build something that wont' be tracked, just
+# prepend the filename with "custom_" and it will be ignored.
 ################################################################################
 
 #Ignore local-config.sh
