@@ -30,20 +30,23 @@
 ##
 #
 # Alias for the Dev Hub that should be used when creating scratch orgs for this project.
-# This is the ONE variable that will likely need to be customized for individual developers.
+# This variable will always need to be customized for individual developers.
 DEV_HUB_ALIAS="<%%-interviewAnswers.devHubAlias%>"
 
-# Namespace Prefix.  Set to "force-app" if this project is not building a managed package.
+# Namespace Prefix.  Set to empty string ("") if this project is not building a managed package.
 NAMESPACE_PREFIX="<%-interviewAnswers.namespacePrefix%>"
 
 # Package Name.  Specified as part of the Package Detail info in your packaging org. 
 # Surround this value with double-quotes if your package name contains space characters.
+# Set to empty string ("") if this project is not building a managed package.
 PACKAGE_NAME="<%-interviewAnswers.packageName%>"
 
 # Metadata Package ID.  Refers to the metadata package as a whole.  Must begin with "033".
+# Set to empty string ("") if this project is not building a managed package.
 METADATA_PACKAGE_ID="<%-interviewAnswers.metadataPackageId%>"
 
 # Package Version ID. Refers to a specific, installable version of a package. Must begin with "04t".
+# Set to empty string ("") if this project is not building a managed package.
 PACKAGE_VERSION_ID="<%-interviewAnswers.packageVersionId%>"
 
 # Default Package Directory. Should match what is set in sfdx-project.json.
@@ -60,6 +63,7 @@ SUBSCRIBER_ORG_ALIAS="$NAMESPACE_PREFIX-SUBSCRIBER"
 
 # Git Remote URI. SSH or HTTPS URI that points to the Git remote repo used by this project.
 # GitHub is used as an example here, but any Git remote (ie. BitBucket) can be used.
+# Set to empty string ("") if this project is not being tracked in a remote repository.
 GIT_REMOTE_URI="<%-interviewAnswers.gitRemoteUri%>"
 
 # Location of the primary scratch-def.json file that should be used by SFDX-Falcon scripts that
