@@ -6,5 +6,20 @@
   ],
   "namespace": "<%-interviewAnswers.namespacePrefix%>",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "42.0"
+  "sourceApiVersion": "42.0",
+  "plugins": {
+    "sfdx-falcon": {
+      "schemaVersion"     : "0.0.1",
+      "projectName"       : "<%-interviewAnswers.projectName%>",
+      "projectType"       : "<%-interviewAnswers.projectType%>",
+      "namespacePrefix"   : "<%-interviewAnswers.namespacePrefix%>",
+      "gitRemoteUri%"     : "<%-interviewAnswers.gitRemoteUri%>"
+      "packageName"       : "<%-interviewAnswers.packageName%>",
+      "metadataPackageId" : "<%-interviewAnswers.metadataPackageId%>",
+      "packageVersionId"  : {
+        "stable"  : "<%-interviewAnswers.packageVersionId%>",
+        "beta"    : "<%-interviewAnswers.packageVersionId%>"
+      }
+    }
+  }
 }
