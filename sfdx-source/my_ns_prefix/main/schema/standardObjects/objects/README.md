@@ -1,4 +1,4 @@
-# TODO: sfdx-source / my_ns_prefix / main / schema / standardObjects
+# TODO: sfdx-source / my_ns_prefix / main / schema / standardObjects / objects
 
 ### What type of files should be kept in this directory?
 
