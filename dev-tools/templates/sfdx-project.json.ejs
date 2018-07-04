@@ -1,27 +1,27 @@
 {
   "packageDirectories": [
-    { "path": "sfdx-source/<%-interviewAnswers.packageDirectory%>", "default": true },
+    { "path": "sfdx-source/<%-userAnswers.packageDirectory%>", "default": true },
     { "path": "sfdx-source/unpackaged"},
     { "path": "sfdx-source/untracked"}
   ],
-  "namespace": "<%-interviewAnswers.namespacePrefix%>",
+  "namespace": "<%-userAnswers.namespacePrefix%>",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "42.0",
   "plugins": {
     "sfdx-falcon": {
       "schemaVersion":      "0.0.1",
       "pluginVersion":      "<%-pluginVersion%>",
-      "projectName":        "<%-interviewAnswers.projectName%>",
-      "projectType":        "<%-interviewAnswers.projectType%>",
-      "namespacePrefix":    "<%-interviewAnswers.namespacePrefix%>",
-      "packageName":        "<%-interviewAnswers.packageName%>",
-      "packageDirectory":   "<%-interviewAnswers.packageDirectory%>",
-      "metadataPackageId":  "<%-interviewAnswers.metadataPackageId%>",
+      "projectName":        "<%-userAnswers.projectName%>",
+      "projectType":        "<%-userAnswers.projectType%>",
+      "namespacePrefix":    "<%-userAnswers.namespacePrefix%>",
+      "packageName":        "<%-userAnswers.packageName%>",
+      "packageDirectory":   "<%-userAnswers.packageDirectory%>",
+      "metadataPackageId":  "<%-userAnswers.metadataPackageId%>",
       "packageVersionId": {
-        "stable":           "<%-interviewAnswers.packageVersionId%>",
-        "beta":             "<%-interviewAnswers.packageVersionId%>"
+        "stable":           "<%-userAnswers.packageVersionId%>",
+        "beta":             "<%-userAnswers.packageVersionId%>"
       },
-      "gitRemoteUri":       "<%-interviewAnswers.gitRemoteUri%>",
+      "gitRemoteUri":       "<%-userAnswers.gitRemoteUri%>",
       "scratchOrgConfig": {
         "developer":        "config/project-scratch-def.json",
         "ciTestBuild1":     "config/test-build-1-scratch-def.json",
