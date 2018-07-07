@@ -143,7 +143,7 @@ installPackage () {
   local startTime=`date +%s`
 
   # Perform the package installation.  If the installation fails abort the script.
-  (cd $DEMO_ROOT && exec sfdx force:package:install -i $1 -p 5 -w 10 -u $SCRATCH_ORG_ALIAS)
+  (cd $PROJECT_ROOT && exec sfdx force:package:install -i $1 -p 5 -w 10 -u $SCRATCH_ORG_ALIAS)
   if [ $? -ne 0 ]; then
     echoErrorMsg "$2 could not be installed. Aborting Script."
     exit 1
