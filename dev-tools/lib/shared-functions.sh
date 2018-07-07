@@ -98,6 +98,14 @@ confirmChoice () {
 ##
 #
 confirmScriptExecution () {
+  if [ ! -z "$CONFIRM_EXECUTION" ]; then
+    # The user has already been asked to confirm execution. 
+    # If confirmScriptExecution() is getting called again, it means that
+    # one or more scripts are being sourced and run by a parent script.
+    # We don't want to keep throwing confirmation messages to the user,
+    # so we'll just return 0 to silently continue.
+    return 0
+  fi
   echo "`tput rev`$1`tput sgr0`"
   read -p "(type YES to confirm, or hit ENTER to cancel) " CONFIRM_EXECUTION
   if [ "$CONFIRM_EXECUTION" != "YES" ]; then
@@ -181,7 +189,13 @@ echoScriptCompleteMsg () {
 #
 echoStepMsg () {
   tput sgr 0; tput setaf 7; tput bold;
-  printf "\nStep $CURRENT_STEP of $TOTAL_STEPS:"
+  if [ $TOTAL_STEPS -gt 0 ]; then
+    ## This is one of a sequence of steps
+    printf "\nStep $CURRENT_STEP of $TOTAL_STEPS:"
+  else
+    # This is likely a preliminary step, coming before a sequence.
+    printf "\nPreliminary Step $CURRENT_STEP:"
+  fi
   tput sgr 0;
   printf " %b\n\n" "$1"
   tput sgr 0;
@@ -241,6 +255,7 @@ findProjectRoot () {
 ##
 #
 initializeHelperVariables () {
+  CONFIRM_EXECUTION=""                                  # Indicates the user's choice whether to execute a script or not
   PROJECT_ROOT=""                                       # Path to the root of this SFDX project
   LOCAL_CONFIG_FILE_NAME=dev-tools/lib/local-config.sh  # Name of the file that contains local config variables
   CURRENT_STEP=1                                        # Used by echoStepMsg() to indicate the current step
@@ -320,8 +335,9 @@ suggestDefaultValue () {
   echo "\n"$1=$LOCAL_DEFAULT"\n"
 
   # Ask user to confirm or reject the proposed value.
-  read -p "(type YES to accept,  NO to provide a different value) " CONFIRM_EXECUTION
-  if [ "$CONFIRM_EXECUTION" != "YES" ]; then
+  local ACCEPT_DEFAULT=""
+  read -p "(type YES to accept,  NO to provide a different value) " ACCEPT_DEFAULT
+  if [ "$ACCEPT_DEFAULT" != "YES" ]; then
     return 1
   fi
 
