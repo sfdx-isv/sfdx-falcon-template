@@ -6,5 +6,27 @@
   ],
   "namespace": "my_ns_prefix",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "41.0"
+  "sourceApiVersion": "43.0",
+  "plugins": {
+    "sfdxFalcon": {
+      "appxPackage": {
+        "schemaVersion"       : "0.0.1",
+        "projectName"         : "my-sfdx-falcon-project",
+        "projectType"         : "managed-package",
+        "namespacePrefix"     : "my_ns_prefix",
+        "packageName"         : "My Package Name",
+        "metadataPackageId"   : "033000000000000",
+        "packageVersionId"    : {
+          "stable": "04t000000000000",
+          "beta"  : "04t000000000000"
+        },
+        "gitRemoteUri"        : "https://github.com/my-org/my-repo.git",
+        "key3": ["value3a", "value3b", "value3c"],
+        "key4": {
+          "key4a": "value4a",
+          "key4b": "value4b"
+        }
+      }
+    }			
+  }  
 }
