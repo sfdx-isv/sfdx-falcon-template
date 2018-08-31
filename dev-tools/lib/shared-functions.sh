@@ -117,6 +117,113 @@ confirmScriptExecution () {
 #
 ##
 ###
+#### FUNCTION: createScratchOrg () #################################################################
+###
+##
+#
+createScratchOrg() {
+  # Declare a local variable to store the Alias of the org to CREATE
+  local ORG_ALIAS_TO_CREATE=""
+
+  # Check if a value was passed to this function in Argument 1.
+  # If there was we will make that the org alias to CREATE.
+  if [ ! -z $1 ]; then
+    ORG_ALIAS_TO_CREATE="$1"
+  elif [ ! -z $TARGET_ORG_ALIAS ]; then
+    ORG_ALIAS_TO_CREATE="$TARGET_ORG_ALIAS"
+  else
+    # Something went wrong. No argument was provided and the TARGET_ORG_ALIAS
+    # has not yet been set or is an empty string.  Raise an error message and
+    # then exit 1 to kill the script.
+    echoErrorMsg "Could not execute createScratchOrg(). Unknown target org alias."
+    exit 1
+  fi
+
+  # Create a new scratch org using the scratch-def.json locally configured for this project. 
+  echoStepMsg "Create a new $ORG_ALIAS_TO_CREATE scratch org"
+  echo "Executing force:org:create -f $SCRATCH_ORG_CONFIG -a $ORG_ALIAS_TO_CREATE -v $DEV_HUB_ALIAS -s -d 29"
+  (cd $PROJECT_ROOT && exec sfdx force:org:create -f $SCRATCH_ORG_CONFIG -a $ORG_ALIAS_TO_CREATE -v $DEV_HUB_ALIAS -s -d 29)
+  if [ $? -ne 0 ]; then
+    echoErrorMsg "Scratch org \"$ORG_ALIAS_TO_CREATE\"could not be created. Aborting Script."
+    exit 1
+  fi
+}
+#
+##
+###
+#### FUNCTION: deleteScratchOrg () #################################################################
+###
+##
+#
+deleteScratchOrg () {
+  # Declare a local variable to store the Alias of the org to delete
+  local ORG_ALIAS_TO_DELETE=""
+
+  # Check if a value was passed to this function in Argument 1.
+  # If there was we will make that the org alias to delete.
+  if [ ! -z $1 ]; then
+    ORG_ALIAS_TO_DELETE="$1"
+  elif [ ! -z $TARGET_ORG_ALIAS ]; then
+    ORG_ALIAS_TO_DELETE="$TARGET_ORG_ALIAS"
+  else
+    # Something went wrong. No argument was provided and the TARGET_ORG_ALIAS
+    # has not yet been set or is an empty string.  Raise an error message and
+    # then exit 1 to kill the script.
+    echoErrorMsg "Could not execute deleteScratchOrg(). Unknown target org alias."
+    exit 1
+  fi
+
+  # Delete the current scratch org.
+  echoStepMsg "Delete the $ORG_ALIAS_TO_DELETE scratch org"
+  echo "Executing force:org:delete -p -u $ORG_ALIAS_TO_DELETE -v $DEV_HUB_ALIAS" 
+  (cd $PROJECT_ROOT && exec sfdx force:org:delete -p -u $ORG_ALIAS_TO_DELETE -v $DEV_HUB_ALIAS )
+}
+#
+##
+###
+#### FUNCTION: determineTargetOrgAlias () ##########################################################
+###
+##
+#
+determineTargetOrgAlias () {
+  # Start by clearing TARGET_ORG_ALIAS so we'll know for sure if a new value was provided
+  TARGET_ORG_ALIAS=""
+
+  # If no value was provided for $REQUESTED_OPERATION, set defaults and return success.
+  if [ -z "$REQUESTED_OPERATION" ]; then
+    PARENT_OPERATION="NOT_SPECIFIED"
+    TARGET_ORG_ALIAS="NOT_SPECIFIED"
+    return 0
+  else 
+    case "$REQUESTED_OPERATION" in 
+      "REBUILD_SCRATCH_ORG")
+        TARGET_ORG_ALIAS="$SCRATCH_ORG_ALIAS"
+        ;;
+      "VALIDATE_PACKAGE_SOURCE")
+        TARGET_ORG_ALIAS="$PACKAGING_ORG_ALIAS"
+        ;;
+      "DEPLOY_PACKAGE_SOURCE")
+        TARGET_ORG_ALIAS="$PACKAGING_ORG_ALIAS"
+        ;;
+      "INSTALL_PACKAGE")
+        TARGET_ORG_ALIAS="$SUBSCRIBER_ORG_ALIAS"
+        ;;
+    esac
+    # Make sure that TARGET_ORG_ALIAS was set.  If not, it means an unexpected PARENT_OPERATION
+    # was provided.  In that case, raise an error and abort the script.
+    if [ -z "$TARGET_ORG_ALIAS" ]; then
+      echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`\"$REQUESTED_OPERATION\" is not a valid installation option.\n"
+      exit 1
+    fi
+    # If we get this far, it means that the REQUESTED_OPERATION was valid.
+    # We can now assign that to the PARENT_OPERATION variable and return success.
+    PARENT_OPERATION="$REQUESTED_OPERATION"
+    return 0
+  fi
+}
+#
+##
+###
 #### FUNCTION: echoConfigVariables () ##############################################################
 ###
 ##
@@ -127,6 +234,7 @@ echoConfigVariables () {
   echo "`tput setaf 7`NAMESPACE_PREFIX ---------->`tput sgr0` " $NAMESPACE_PREFIX
   echo "`tput setaf 7`PACKAGE_NAME -------------->`tput sgr0` " $PACKAGE_NAME
   echo "`tput setaf 7`DEFAULT_PACKAGE_DIR_NAME -->`tput sgr0` " $DEFAULT_PACKAGE_DIR_NAME
+  echo "`tput setaf 7`TARGET_ORG_ALIAS ---------->`tput sgr0` " $TARGET_ORG_ALIAS
   echo "`tput setaf 7`DEV_HUB_ALIAS ------------->`tput sgr0` " $DEV_HUB_ALIAS
   echo "`tput setaf 7`SCRATCH_ORG_ALIAS --------->`tput sgr0` " $SCRATCH_ORG_ALIAS
   echo "`tput setaf 7`PACKAGING_ORG_ALIAS ------->`tput sgr0` " $PACKAGING_ORG_ALIAS
@@ -257,6 +365,7 @@ findProjectRoot () {
 initializeHelperVariables () {
   CONFIRM_EXECUTION=""                                  # Indicates the user's choice whether to execute a script or not
   PROJECT_ROOT=""                                       # Path to the root of this SFDX project
+  TARGET_ORG_ALIAS=""                                   # Target of all Salesforce CLI commands during this run
   LOCAL_CONFIG_FILE_NAME=dev-tools/lib/local-config.sh  # Name of the file that contains local config variables
   CURRENT_STEP=1                                        # Used by echoStepMsg() to indicate the current step
   TOTAL_STEPS=0                                         # Used by echoStepMsg() to indicate total num of steps
@@ -266,6 +375,56 @@ initializeHelperVariables () {
   # Call findProjectRoot() to dynamically determine
   # the path to the root of this SFDX project
   findProjectRoot PROJECT_ROOT
+}
+#
+##
+###
+#### FUNCTION: installPackage () ###################################################################
+###
+##
+#
+installPackage () {
+  # Delcare a local variable to store the Alias of the target install org.
+  local PACKAGE_INSTALL_TARGET_ALIAS=""
+
+  # Check if a target org was provided as the FOURTH argument.  If there
+  # is no FOURTH argument, go with whatever is set in the TARGET_ORG_ALIAS
+  # variable.  If that is empty, then exit with an error.
+  if [ ! -z $4 ]; then
+    PACKAGE_INSTALL_TARGET_ALIAS="$4"
+  elif [ ! -z $TARGET_ORG_ALIAS ]; then
+    PACKAGE_INSTALL_TARGET_ALIAS="$TARGET_ORG_ALIAS"
+  else
+    # Something went wrong. No FOURTH argument was provided and the TARGET_ORG_ALIAS
+    # has not yet been set or is an empty string.  Raise an error message and
+    # then exit 1 to kill the script.
+    echoErrorMsg "Could not execute installPackage(). Unknown target org alias."
+    exit 1
+  fi
+
+  # Echo the string provided by argument three. This string should provide the
+  # user with an easy-to-understand idea of what package is being installed.
+  echoStepMsg "$3"
+
+  # Print the time (HH:MM:SS) when the installation started.
+  echo "Executing force:package:install --package $1 --publishwait 5 --wait 10 -u $PACKAGE_INSTALL_TARGET_ALIAS"
+  echo "\n`tput bold`Package installation started at `date +%T``tput sgr0`\n"
+  local startTime=`date +%s`
+
+  # Perform the package installation.  If the installation fails abort the script.
+  (cd $PROJECT_ROOT && exec sfdx force:package:install --package $1 --publishwait 5 --wait 10 -u $PACKAGE_INSTALL_TARGET_ALIAS)
+  if [ $? -ne 0 ]; then
+    echoErrorMsg "$2 could not be installed. Aborting Script."
+    exit 1
+  fi
+
+  # Print the time (HH:MM:SS) when the installation completed.
+  echo "\n`tput bold`Package installation completed at `date +%T``tput sgr0`"
+  local endTime=`date +%s`
+
+  # Determine the total runtime (in seconds) and show the user.
+  local totalRuntime=$((endTime-startTime))
+  echo "Total runtime for package installation was $totalRuntime seconds."
 }
 #
 ##
