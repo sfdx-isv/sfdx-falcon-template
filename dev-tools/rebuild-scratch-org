@@ -26,6 +26,9 @@ if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
   exit 1
 fi
 
+# Indicate the operation being carried out by this script.
+REQUESTED_OPERATION="REBUILD_SCRATCH_ORG"
+
 # Load the shared-functions.sh library.  This action will also cause the
 # config variables from dev-tools/lib/local-config.sh to be loaded.
 source `dirname $0`/lib/shared-functions.sh
