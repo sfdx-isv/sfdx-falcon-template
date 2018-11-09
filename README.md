@@ -62,9 +62,7 @@ Your Salesforce, GitHub, and Local environments should meet the following prereq
 [7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
 
 ### Important Note for Windows Users
-The commands used in this document and (more importantly) the shell scripts provided in `dev-tools` use syntax supported by the Bash shell (and its cohorts, like Zsh).
-
-Windows 10 users can enable the "Windows Subsystem for Linux" feature and install the Bash shell.  There's a great walkthrough that shows you [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10) over at HowToGeek.com.  
+For windows users there are now PowerShell scripts available in `dev-tools-win`.
 
 ## How to Start a New Project From This Template
 
