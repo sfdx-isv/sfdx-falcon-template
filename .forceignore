@@ -26,4 +26,5 @@ sfdx-source/my_ns_prefix/test/javascript
 sfdx-source/my_ns_prefix/test/selenium
 
 # Ignore all .md files (like README.md)
+!**.md-meta.xml
 **.md
