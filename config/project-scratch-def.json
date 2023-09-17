@@ -1,7 +1,25 @@
 {
-    "orgName": "Your Company Name",
+    "orgName": "Package Development Scratch Org",
     "edition": "Developer",
-    "orgPreferences" : {
-        "enabled": ["S1DesktopEnabled"]
+    "features": ["EnableSetPasswordInApi"],
+    "settings": {
+      "lightningExperienceSettings": {
+        "enableS1DesktopEnabled": true
+      },
+      "mobileSettings": {
+        "enableS1EncryptedStoragePref2": false
+      },
+      "securitySettings": {
+        "sessionSettings": {
+          "sessionTimeout": "TwelveHours"
+        }
+      },
+      "userManagementSettings": {
+        "enableEnhancedPermsetMgmt": true,
+        "enableEnhancedProfileMgmt": true,
+        "enableNewProfileUI": true,
+        "permsetsInFieldCreation": true
+      } 
     }
-}
+  }
+  
