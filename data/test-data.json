@@ -54,6 +54,63 @@
                         "Title": "Account Executive"
                     }
                 ]
+            },
+            "ChildAccounts": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Account",
+                            "referenceId": "AccountAcmeFinancial"
+                        },
+                        "Name": "Acme Financial",
+                        "Site": "North America",
+                        "BillingCity": "New York",
+                        "BillingCountry": "USA",
+                        "BillingGeocodeAccuracy": null,
+                        "BillingLatitude": null,
+                        "BillingLongitude": null,
+                        "BillingPostalCode": "10166",
+                        "BillingState": "NY",
+                        "BillingStreet": "450 Fifth Avenue/nThird Floor/nSuite 300",
+                        "Description": "Acme Financial is the lending services division of Acme Supply.",
+                        "Industry": "Finance",
+                        "Phone": "212-555-3412",
+                        "ShippingCity": "New York",
+                        "ShippingCountry": "USA",
+                        "ShippingGeocodeAccuracy": null,
+                        "ShippingLatitude": null,
+                        "ShippingLongitude": null,            
+                        "ShippingPostalCode": "10166",
+                        "ShippingState": "NY",
+                        "ShippingStreet": "450 Fifth Avenue/nThird Floor/nSuite 300",
+                        "TickerSymbol": "ACME",
+                        "Website": "www.acme-financial.com",
+                        "Contacts": {
+                            "records": [
+                                {
+                                    "attributes": {
+                                        "type": "Contact",
+                                        "referenceId": "ContactAcmeFinancialPaula"
+                                    },
+                                    "AccountId": "AccountAcmeFinancial",
+                                    "Salutation": "Ms.",
+                                    "FirstName": "Paula",
+                                    "LastName": "Grasley",
+                                    "Department": "Corporate Credit",
+                                    "Description": "Paula is the main contact for our business line of credit with Acme.",
+                                    "Email": "paula.grasley@acme-financial.com",
+                                    "MailingCity": "New York",
+                                    "MailingCountry": "USA",
+                                    "MailingPostalCode": "10166",
+                                    "MailingState": "NY",
+                                    "MailingStreet": "450 Fifth Avenue/nThird Floor/nSuite 300",
+                                    "Phone": "212-555-3412 x8656",
+                                    "Title": "Credit Manager"
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
         },
         {
@@ -134,6 +191,6 @@
                     }
                 ]
             }
-        }        
+        }
     ]
 }
