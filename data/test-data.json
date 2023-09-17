@@ -1,0 +1,139 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Account",
+                "referenceId": "AccountAcme"
+            },
+            "Name": "Acme Supply",
+            "Site": "North America",
+            "BillingCity": "San Diego",
+            "BillingCountry": "USA",
+            "BillingGeocodeAccuracy": null,
+            "BillingLatitude": null,
+            "BillingLongitude": null,
+            "BillingPostalCode": "92123",
+            "BillingState": "CA",
+            "BillingStreet": "123 Main Street",
+            "Description": "Acme Supply is our primary vendor for fabrication, demolition, and construction material.",
+            "Industry": "Manufacturing",
+            "Phone": "619-555-1212",
+            "ShippingCity": "San Diego",
+            "ShippingCountry": "USA",
+            "ShippingGeocodeAccuracy": null,
+            "ShippingLatitude": null,
+            "ShippingLongitude": null,
+            "ShippingPostalCode": "92123",
+            "ShippingState": "CA",
+            "ShippingStreet": "123 Main Street",
+            "TickerSymbol": "ACME",
+            "Website": "www.acme.com",
+            "Contacts": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Contact",
+                            "referenceId": "ContactAcmeJane"
+                        },
+                        "Salutation": "Mrs.",
+                        "FirstName": "Jane",
+                        "LastName": "Smith",
+                        "Department": "Building Supply Sales",
+                        "Description": "Jane is our Account Executive for building supply purchases.",
+                        "Email": "jane.smith@acme.com",
+                        "Fax": null,
+                        "MailingCity": "San Diego",
+                        "MailingCountry": "USA",
+                        "MailingGeocodeAccuracy": null,
+                        "MailingLatitude": null,
+                        "MailingLongitude": null,
+                        "MailingPostalCode": "92123",
+                        "MailingState": "CA",
+                        "MailingStreet": "123 Main Street",
+                        "Phone": "619-555-1212 x4321",
+                        "Title": "Account Executive"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "type": "Account",
+                "referenceId": "AccountBaySide"
+            },
+            "Name": "BaySide Service Center",
+            "Site": "Southern California",
+            "BillingCity": "Los Angeles",
+            "BillingCountry": "USA",
+            "BillingGeocodeAccuracy": null,
+            "BillingLatitude": null,
+            "BillingLongitude": null,
+            "BillingPostalCode": "94213",
+            "BillingState": "CA",
+            "BillingStreet": "987 Plaza Drive",
+            "Description": "BaySide Service Center is our primary vendor for equipment repair and maintenance.",
+            "Industry": "Engineering",
+            "Phone": "213-555-9289",
+            "ShippingCity": "Los Angeles",
+            "ShippingCountry": "USA",
+            "ShippingGeocodeAccuracy": null,
+            "ShippingLatitude": null,
+            "ShippingLongitude": null,
+            "ShippingPostalCode": "94213",
+            "ShippingState": "CA",
+            "ShippingStreet": "987 Plaza Drive",
+            "TickerSymbol": "BAYS",
+            "Website": "www.bayside-service.com",
+            "Contacts": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Contact",
+                            "referenceId": "ContactBaySideMike"
+                        },
+                        "Salutation": "Mr.",
+                        "FirstName": "Mike",
+                        "LastName": "Ramirez",
+                        "Department": "Fleet Service",
+                        "Description": "Mike handles the sales and scheduling of maintenance and repair services for our fleet of vehicles in Southern California.",
+                        "Email": "mramirez@bayside-service.com",
+                        "Fax": null,
+                        "MailingCity": "Los Angeles",
+                        "MailingCountry": "USA",
+                        "MailingGeocodeAccuracy": null,
+                        "MailingLatitude": null,
+                        "MailingLongitude": null,
+                        "MailingPostalCode": "94213",
+                        "MailingState": "CA",
+                        "MailingStreet": "987 Plaza Drive",
+                        "Phone": "213-555-9289 x25642",
+                        "Title": "Fleet Service Manager"
+                    },
+                    {
+                        "attributes": {
+                            "type": "Contact",
+                            "referenceId": "ContactBaySideSally"
+                        },
+                        "Salutation": "Ms.",
+                        "FirstName": "Sally",
+                        "LastName": "Gupta",
+                        "Department": "Physical Plant Service",
+                        "Description": "Sally handles the sales and scheduling of maintenance and repair services for the infrastructure at our Southern California sites.",
+                        "Email": "sgupta@bayside-service.com",
+                        "Fax": null,
+                        "MailingCity": "Los Angeles",
+                        "MailingCountry": "USA",
+                        "MailingGeocodeAccuracy": null,
+                        "MailingLatitude": null,
+                        "MailingLongitude": null,
+                        "MailingPostalCode": "94213",
+                        "MailingState": "CA",
+                        "MailingStreet": "987 Plaza Drive",
+                        "Phone": "213-555-9289 x25982",
+                        "Title": "Physical Plant Service Manager"
+                    }
+                ]
+            }
+        }        
+    ]
+}
