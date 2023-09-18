@@ -17,6 +17,7 @@
       "default": true
     }
   ],
+  "name": "project-name",
   "namespace": "ns_prefix",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "58.0"  
