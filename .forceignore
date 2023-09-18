@@ -1,30 +1,25 @@
-################################################################################
-# Exclude certain files and directories from source push, pull, and convert.
+# List files or directories below to ignore them when running "sf project deploy start" or "sf project retrieve start".
+# Run "sf project list ignored" at the command line to validate the list of ignored source files.
+# More information: https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
 #
-# The .forceignore file excludes files when running force:source:push,
-# force:source:pull, and force:source:status. For source:status, remote changes
-# are checked against entries in the .forceignore file. 
-#
-# Syntax for .forceignore is similar to .gitignore (see examples below)
-#
-# Specify a relative path to a directory from the project root
-# helloWorld/main/default/classes
-#
-# Specify a wildcard directory - any directory named “classes” is excluded
-# **classes
-#
-# Specify file extensions
-# **.cls
-# **.pdf
-#
-# Specify a specific file
-# helloWorld/main/default/HelloWorld.cls
-################################################################################
 
-# Ignore the following directories (relative to the project root).
-sfdx-source/my_ns_prefix/test/javascript
-sfdx-source/my_ns_prefix/test/selenium
+# Package XML files
+package.xml
 
-# Ignore all .md files (like README.md)
-!**.md-meta.xml
-**.md
+# LWC configuration files
+**/jsconfig.json
+**/.eslintrc.json
+
+# LWC Jest
+**/__tests__/**
+
+# Metadata Types to Fully Ignore
+**/appMenus
+**/duplicateRules
+
+# Profiles (except Admin)
+**.profile-meta.xml
+!**Admin.profile-meta.xml
+
+# Placeholder files
+**.placeholder
