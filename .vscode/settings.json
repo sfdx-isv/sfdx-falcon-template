@@ -1,9 +1,22 @@
 {
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
-    "**/.sfdx": true
+    "**/.sfdx": true,
+    "**/.sf": true,
+    "**/lib": true,
+    "**/bin": true
   },
   "git.openRepositoryInParentFolders": "always",
-  "salesforcedx-vscode-core.show-cli-success-msg": false
+  "salesforcedx-vscode-core.show-cli-success-msg": false,
+  "salesforcedx-vscode-core.retrieve-test-code-coverage": true,
+  "xml.validation.schema.enabled": "onValidSchema",
+  "codeBuilder.showWelcomePage": false
 }
