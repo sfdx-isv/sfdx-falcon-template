@@ -1,0 +1,24 @@
+SELECT  Id, 
+        Name, 
+        Site, 
+        BillingAddress, 
+        Description, 
+        Industry, 
+        Phone, 
+        ShippingAddress, 
+        TickerSymbol, 
+        Website,
+        (SELECT Id,
+                Name,
+                AccountId,
+                Department,
+                Description,
+                Email,
+                Fax,
+                MailingAddress,
+                Phone,
+                Title
+          FROM
+                Contacts)
+FROM 
+        Account

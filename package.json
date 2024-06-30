@@ -1,9 +1,10 @@
 {
   "name": "sfdx-falcon-template",
-  "description": "An extended Salesforce DX project directory template, designed to support complex projects and managed packages.",
-  "version": "0.3.1",
+  "private": true,
+  "description": "A Salesforce DX project template optimized for building second-generation packaging.",
+  "version": "2.0.0",
   "author": "Vivek M. Chawla @VivekMChawla",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "bugs": "https://github.com/sfdx-isv/sfdx-falcon-template/issues",
   "homepage": "https://github.com/sfdx-isv/sfdx-falcon-template",
   "repository": "sfdx-isv/sfdx-falcon-template",
@@ -11,16 +12,54 @@
   "keywords": [
     "salesforce", "sfdx-plugin", "sfdx-falcon", "sfdx"
   ],
+  "scripts": {
+    "lint": "eslint **/{aura,lwc}/**",
+    "test": "npm run test:unit",
+    "test:unit": "sfdx-lwc-jest",
+    "test:unit:watch": "sfdx-lwc-jest --watch",
+    "test:unit:debug": "sfdx-lwc-jest --debug",
+    "test:unit:coverage": "sfdx-lwc-jest --coverage",
+    "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+    "prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+    "postinstall": "husky install",
+    "precommit": "lint-staged"
+  },
+  "devDependencies": {
+    "@lwc/eslint-plugin-lwc": "^1.1.2",
+    "@prettier/plugin-xml": "^2.0.1",
+    "@salesforce/eslint-config-lwc": "^3.2.3",
+    "@salesforce/eslint-plugin-aura": "^2.0.0",
+    "@salesforce/eslint-plugin-lightning": "^1.0.0",
+    "@salesforce/sfdx-lwc-jest": "^1.1.0",
+    "eslint": "^8.11.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.0",
+    "prettier-plugin-apex": "^1.10.0"
+  },
+  "lint-staged": {
+    "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
+      "prettier --write"
+    ],
+    "**/{aura,lwc}/**": [
+      "eslint"
+    ]
+  },
   "files": [
-    "/.circleci",
+    "/.husky",
+    "/.vscode",
     "/config",
     "/data",
-    "/dev-tools",
     "/mdapi-source",
+    "/scripts",
     "/sfdx-source",
-    "/temp",
     ".forceignore",
     ".gitignore",
+    ".prettierignore",
+    ".prettierrc",
+    "jest.config.js",
     "LICENSE",
     "package.json",
     "README.md",

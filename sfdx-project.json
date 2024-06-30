@@ -1,32 +1,25 @@
 {
   "packageDirectories": [
-    { "path": "sfdx-source/my_ns_prefix", "default": true },
-    { "path": "sfdx-source/unpackaged"},
-    { "path": "sfdx-source/untracked"}
+    {
+      "path": "sfdx-source/packaged",
+      "default": false,
+      "scopeProfiles": true,
+      "package": "Package Name",
+      "versionName": "Summer '24",
+      "versionNumber": "100.0.0.NEXT",
+      "versionDescription": "Summer 2024 Release"
+    },
+    {
+      "path": "sfdx-source/unpackaged",
+      "default": false
+    },
+    {
+      "path": "sfdx-source/unsorted",
+      "default": true
+    }
   ],
-  "namespace": "my_ns_prefix",
+  "name": "project-name",
+  "namespace": "ns_prefix",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "43.0",
-  "plugins": {
-    "sfdxFalcon": {
-      "appxPackage": {
-        "schemaVersion"       : "0.0.1",
-        "projectName"         : "my-sfdx-falcon-project",
-        "projectType"         : "managed-package",
-        "namespacePrefix"     : "my_ns_prefix",
-        "packageName"         : "My Package Name",
-        "metadataPackageId"   : "033000000000000",
-        "packageVersionId"    : {
-          "stable": "04t000000000000",
-          "beta"  : "04t000000000000"
-        },
-        "gitRemoteUri"        : "https://github.com/my-org/my-repo.git",
-        "key3": ["value3a", "value3b", "value3c"],
-        "key4": {
-          "key4a": "value4a",
-          "key4b": "value4b"
-        }
-      }
-    }			
-  }  
+  "sourceApiVersion": "60.0"
 }

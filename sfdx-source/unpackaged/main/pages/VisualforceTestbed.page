@@ -1,0 +1,75 @@
+<apex:page Controller="VisualforceTestbedController">
+    <style>
+        td {
+            font-weight: bold; font-size: 120%;
+        }
+        h1 {
+            font-size: 150%
+        }
+    </style>
+
+    <h1>Visualforce Testbed for Packaged Apex</h1>
+    <br/><br/>
+    
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="2">
+
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="Can I execute Method 1?" action="{!executeMethod1}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="{!canExecuteMethod1}" style="color: {!method1ExecutionResultColor};"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="Can I execute Method 2?" action="{!executeMethod2}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem > 
+                    <apex:outputText value="{!canExecuteMethod2}" style="color: {!method2ExecutionResultColor};"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="Can I execute Method 3?" action="{!executeMethod3}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem > 
+                    <apex:outputText value="{!canExecuteMethod3}" style="color: {!method3ExecutionResultColor};"/>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+
+    <h1>DEBUG</h1>
+    <br/><br/>
+
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="2">
+
+            <apex:pageBlockSectionItem >
+                DEBUG executeMethod1():
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="{!method1DebugOutput}" style="color: black;"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                DEBUG executeMethod2():
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="{!method2DebugOutput}" style="color: black;"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+                DEBUG executeMethod3():
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem >
+                <apex:outputText value="{!method3DebugOutput}" style="color: black;"/>
+            </apex:pageBlockSectionItem>
+
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

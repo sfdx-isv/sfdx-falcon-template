@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides a simple testbed for running packaged Apex code.</description>
+    <label>VF Testbed</label>
+    <motif>Custom100: TV Widescreen</motif>
+    <page>VisualforceTestbed</page>
+</CustomTab>
