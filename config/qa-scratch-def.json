@@ -1,13 +1,10 @@
 {
-  "orgName": "Package Development Scratch Org",
-  "edition": "Developer",
+  "orgName": "Package QA Scratch Org",
+  "edition": "Enterprise",
   "features": ["EnableSetPasswordInApi"],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
-    },
-    "mobileSettings": {
-      "enableS1EncryptedStoragePref2": false
     },
     "securitySettings": {
       "sessionSettings": {
