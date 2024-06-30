@@ -3,23 +3,23 @@
 # More information: https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
 #
 
-# Package XML files
+# Ignore Package XML files
 package.xml
 
-# LWC configuration files
+# Ignore LWC configuration files
 **/jsconfig.json
 **/.eslintrc.json
 
-# LWC Jest
+# Ignore LWC Jest
 **/__tests__/**
 
 # Metadata Types to Fully Ignore
 **/appMenus
 **/duplicateRules
 
-# Profiles (except Admin)
+# Ignore Profiles
 **.profile-meta.xml
-!**Admin.profile-meta.xml
+#!**Admin.profile-meta.xml # <-- Uncomment this line to NOT IGNORE the Admin profile.
 
-# Placeholder files
+# Ignore Placeholder files
 **.placeholder
