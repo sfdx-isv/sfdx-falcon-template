@@ -1,6 +1,6 @@
 # SFDX-Falcon 2GP Project Template
 
-This template is a starting point for Salesforce DX projects building a managed second-generation package (2GP).
+This template is a starting point for a Salesforce DX project building a managed second-generation package (2GP).
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ If you get any warnings about security vulernabilities, execute this command
 npm audit fix --prefix ./scripts/js 
 ```
 
-### 2. Use the SFDX-Falcon `toolbelt` to create a package dev scratch org.
+### 2. Use the SFDX-Falcon `toolbelt` to create a package development scratch org.
 Execute this command from the root of your SFDX project folder.
 ```bash
 ./toolbelt
