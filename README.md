@@ -33,6 +33,16 @@ Execute this command from the root of your SFDX project folder.
 sf package create -n "My New 2GP App" -r sfdx-source/packaged -t Managed
 ```
 
+### 2. Remove the duplicate `packageDirectory` object from `sfdx-project.json`.
+
+The `package create` command will have created a duplicate `packageDirectory` object in `sfdx-project.json`. Here's how to fix this.
+
+1. KEEP the original `packageDirectory` object near the top of `sfdx-project.json` 
+   by changing the value of the `package` property from `"Package Name"` to the name
+  that appears in the `packageAliases` object.
+2. REMOVE the duplicate `packageDirectory` object that was added near the bottom of
+   `sfdx-project.json`.
+
 ## Create a Package Development Scratch Org
 
 ### 1. Install the SFDX-Falcon `toolbelt` in your local project.
