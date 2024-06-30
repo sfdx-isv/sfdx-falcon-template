@@ -78,6 +78,13 @@ SfdxFalconDebug.str(`${dbgNs}:devOrgConfigFile`, devOrgConfigFile);
 export const qaOrgAlias = `PKG-QA:${sfdxProjectName}`;
 SfdxFalconDebug.str(`${dbgNs}:qaOrgAlias`, qaOrgAlias);
 /**
+ * The name of the scratch org configuration file for QA environments.
+ * Please note that the file must be located in the `config` subdirectory
+ * at the root of your SFDX project directory.
+ */
+export const qaOrgConfigFile = "qa-scratch-def.json";
+SfdxFalconDebug.str(`${dbgNs}:qaOrgConfigFile`, qaOrgConfigFile);
+/**
  * The alias for the UAT environment (Trial/Sandbox/Dev) used by this SFDX project.
  */
 export const uatOrgAlias = `PKG-UAT:${sfdxProjectName}`;
