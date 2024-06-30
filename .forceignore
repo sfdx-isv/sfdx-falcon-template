@@ -21,5 +21,8 @@ package.xml
 **.profile-meta.xml
 #!**Admin.profile-meta.xml # <-- Uncomment this line to NOT IGNORE the Admin profile.
 
-# Ignore Placeholder files
+# Ignore the default permission set
+**/permissionsets/sfdcInternalInt__sfdc_scrt2.permissionset-meta.xml
+
+# Ignore placeholder files
 **.placeholder
