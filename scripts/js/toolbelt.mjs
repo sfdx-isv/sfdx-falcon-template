@@ -99,8 +99,18 @@ SfdxFalconDebug.obj(`${dbgNs}:packageAliases`, packageAliases);
  * source in this SFDX project can be deployed to an org.
  */
 export const packageDependencies = SfdxUtils.getPackageDependencies(sfdxProjectJson);
+/**
+ * The name of the developer's non-standard browser. Useful for opening development
+ * and QA scratch orgs because it makes it easy for developers to distinguish between
+ * working in "production" and "development" environments.
+ */
+export const alternativeBrowser = "firefox";
+/**
+ * The path to the Salesforce Setup page that shows the status of a deployment.
+ */
+export const deploymentStatusPage = "lightning/setup/DeployStatus/home"
 
-// Run the Build Dev Environment process.
+// Run the process defined in `build-dev-env.mjs`.
 try {
   await buildDevEnv();
 } catch (buildError) {
