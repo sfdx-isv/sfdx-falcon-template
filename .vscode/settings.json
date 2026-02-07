@@ -18,5 +18,6 @@
   "salesforcedx-vscode-core.show-cli-success-msg": false,
   "salesforcedx-vscode-core.retrieve-test-code-coverage": true,
   "xml.validation.schema.enabled": "onValidSchema",
-  "codeBuilder.showWelcomePage": false
+  "codeBuilder.showWelcomePage": false,
+  "xml.preferences.showSchemaDocumentationType": "none"
 }
